@@ -1,12 +1,12 @@
 import {Link} from "react-router-dom";
-import {Facebook, Instagram, Mail, MapPin, Phone, Twitter} from "lucide-react";
+import {Facebook, Instagram, Linkedin, Mail, MapPin, Phone} from "lucide-react";
 import {Button} from "@/components/ui/button";
 
 const Footer = () => {
     const socialLinks = [
-        {icon: Facebook, href: "#", label: "Facebook"},
-        {icon: Instagram, href: "#", label: "Instagram"},
-        {icon: Twitter, href: "#", label: "Twitter"},
+        {icon: Facebook, href: "https://www.facebook.com/profile.php?id=100064883794680", label: "Facebook"},
+        {icon: Instagram, href: "https://www.instagram.com/zolangefoundation", label: "Instagram"},
+        {icon: Linkedin, href: "https://www.linkedin.com/company/zolange-foundation/", label: "LinkedIn"},
     ];
 
     const quickLinks = [
@@ -93,10 +93,10 @@ const Footer = () => {
                 <div
                     className="border-t border-primary-foreground/20 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
                     <p className="text-primary-foreground/60 text-sm">
-                        © 2024 Zolange Foundation. All rights reserved.
+                        © 2025 Zolange Foundation. All rights reserved.
                     </p>
                     <p className="text-primary-foreground/60 text-sm mt-2 md:mt-0">
-                        Built with love for the community
+                        Built with love for the community by <a href="https://hibera-agency.com">Hibera Agency</a> 💙
                     </p>
                 </div>
             </div>
