@@ -74,17 +74,20 @@ const Footer = () => {
                         <div className="space-y-3">
                             <div className="flex items-center space-x-3">
                                 <MapPin className="w-5 h-5 text-secondary"/>
-                                <span className="text-primary-foreground/80 text-sm">
-                  123 Foundation Street<br/>City, Country
-                </span>
+                                <span className="text-primary-foreground/80 text-sm">Almere, The netherlands</span>
                             </div>
                             <div className="flex items-center space-x-3">
                                 <Phone className="w-5 h-5 text-secondary"/>
-                                <span className="text-primary-foreground/80 text-sm">+1 (555) 123-4567</span>
+                                <a href="tel:+31 6 12345678">
+                                    <span className="text-primary-foreground/80 text-sm">+31 6 12345678</span>
+                                </a>
                             </div>
                             <div className="flex items-center space-x-3">
                                 <Mail className="w-5 h-5 text-secondary"/>
-                                <span className="text-primary-foreground/80 text-sm">info@zolangefoundation.org</span>
+                                <a href="mailto:zolangefoundation@gmail.com">
+                                    <span
+                                        className="text-primary-foreground/80 text-sm">zolangefoundation@gmail.com</span>
+                                </a>
                             </div>
                         </div>
                     </div>
