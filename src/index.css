@@ -15,17 +15,17 @@
     --popover: 0 0% 100%;
     --popover-foreground: 155 80% 15%;
 
-    /* Primary Green Theme */
-    --primary: 155 70% 45%;
+    /* Primary Green Theme - Logo Colors */
+    --primary: 140 98% 21%;
     --primary-foreground: 0 0% 100%;
-    --primary-light: 155 60% 55%;
-    --primary-dark: 155 80% 35%;
+    --primary-light: 140 85% 35%;
+    --primary-dark: 140 98% 15%;
 
-    /* Secondary Orange Theme */
-    --secondary: 25 85% 55%;
+    /* Secondary Orange Theme - Logo Colors */
+    --secondary: 20 100% 56%;
     --secondary-foreground: 0 0% 100%;
-    --secondary-light: 25 75% 65%;
-    --secondary-dark: 25 95% 45%;
+    --secondary-light: 20 85% 65%;
+    --secondary-dark: 20 100% 45%;
 
     --muted: 155 15% 95%;
     --muted-foreground: 155 25% 45%;
@@ -41,11 +41,11 @@
     --ring: 155 70% 45%;
 
     /* Custom Design Tokens */
-    --hero-gradient: linear-gradient(135deg, hsl(155 70% 45%), hsl(155 60% 55%));
-    --donation-gradient: linear-gradient(135deg, hsl(25 85% 55%), hsl(25 75% 65%));
-    --overlay-dark: 155 80% 15% / 0.8;
-    --shadow-primary: 0 10px 40px hsl(155 70% 45% / 0.2);
-    --shadow-secondary: 0 10px 40px hsl(25 85% 55% / 0.2);
+    --hero-gradient: linear-gradient(135deg, hsl(140 98% 21%), hsl(140 85% 35%));
+    --donation-gradient: linear-gradient(135deg, hsl(20 100% 56%), hsl(20 85% 65%));
+    --overlay-dark: 140 80% 15% / 0.8;
+    --shadow-primary: 0 10px 40px hsl(140 98% 21% / 0.2);
+    --shadow-secondary: 0 10px 40px hsl(20 100% 56% / 0.2);
 
     --radius: 0.75rem;
 
