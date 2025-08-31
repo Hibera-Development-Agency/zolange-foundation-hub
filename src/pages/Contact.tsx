@@ -55,10 +55,10 @@ const Contact = () => {
 
             <main className="pt-16">
                 {/* Hero Section */}
-                <section className="bg-hero-gradient text-white py-20">
+                <section className="bg-hero-gradient text-white py-12 sm:py-20">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                        <h1 className="text-4xl md:text-6xl font-bold mb-6">Contact Us</h1>
-                        <p className="text-xl max-w-3xl mx-auto">
+                        <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 px-2 sm:px-0">Contact Us</h1>
+                        <p className="text-lg sm:text-xl max-w-3xl mx-auto px-2 sm:px-0">
                             We'd love to hear from you. Get in touch with us for any questions, partnerships, or
                             volunteer opportunities.
                         </p>
@@ -66,9 +66,9 @@ const Contact = () => {
                 </section>
 
                 {/* Contact Information */}
-                <section className="py-20">
+                <section className="py-12 sm:py-20">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                             {contactInfo.map((item, index) => (
                                 <Card key={index} className="text-center hover:shadow-lg transition-shadow">
                                     <CardContent className="p-6">
@@ -87,9 +87,9 @@ const Contact = () => {
                 </section>
 
                 {/* Contact Form & Map */}
-                <section className="py-20 bg-muted">
+                <section className="py-12 sm:py-20 bg-muted">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
                             {/* Contact Form */}
                             <Card>
                                 <CardHeader>

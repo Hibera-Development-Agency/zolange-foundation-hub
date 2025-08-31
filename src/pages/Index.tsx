@@ -56,13 +56,13 @@ const Index = () => {
         <Hero />
 
         {/* Mission Section */}
-        <section className="py-20">
+        <section className="py-12 sm:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">
                 We are the Zolange Foundation
               </h2>
-              <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+              <p className="text-lg sm:text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2 sm:px-0">
                 Our vision centers on creating a profound difference in the lives of 
                 people worldwide, regardless of their backgrounds or ages. We aim to 
                 inspire and empower individuals, renewing hope, offering comfort, 
@@ -80,16 +80,16 @@ const Index = () => {
         </section>
 
         {/* Featured Projects */}
-        <section className="py-20 bg-muted">
+        <section className="py-12 sm:py-20 bg-muted">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-foreground mb-6">Our Featured Projects</h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">Our Featured Projects</h2>
+              <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-2 sm:px-0">
                 Discover the impactful work we're doing in communities around the world.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
               {featuredProjects.map((project) => (
                 <Card key={project.id} className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                   <div className="aspect-video overflow-hidden">
@@ -119,8 +119,8 @@ const Index = () => {
               ))}
             </div>
 
-            <div className="text-center mt-12">
-              <Button variant="default" size="lg" asChild>
+            <div className="text-center mt-8 sm:mt-12">
+              <Button variant="default" size="lg" asChild className="w-full sm:w-auto">
                 <Link to="/projects">View All Projects</Link>
               </Button>
             </div>
@@ -128,16 +128,16 @@ const Index = () => {
         </section>
 
         {/* Impact Stats */}
-        <section className="py-20">
+        <section className="py-12 sm:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-foreground mb-6">Our Global Impact</h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">Our Global Impact</h2>
+              <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-2 sm:px-0">
                 Together, we're making a real difference in communities around the world.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
               {impactStats.map((stat, index) => (
                 <div key={index} className="text-center">
                   <div className="w-20 h-20 bg-hero-gradient rounded-full flex items-center justify-center mx-auto mb-4">
@@ -152,23 +152,23 @@ const Index = () => {
         </section>
 
         {/* Call to Action */}
-        <section className="py-20 bg-donation-gradient text-white">
+        <section className="py-12 sm:py-20 bg-donation-gradient text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Join Our Mission Today</h2>
-            <p className="text-xl mb-8 max-w-3xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 px-2 sm:px-0">Join Our Mission Today</h2>
+            <p className="text-lg sm:text-xl mb-6 sm:mb-8 max-w-3xl mx-auto px-2 sm:px-0">
               Every contribution, whether through donation or volunteering, helps us expand 
               our reach and deepen our impact in communities worldwide. Be part of the transformation.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Button variant="secondary" size="lg" asChild className="text-lg px-8 py-4">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center px-4 sm:px-0">
+              <Button variant="secondary" size="lg" asChild className="text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 w-full sm:w-auto">
                 <Link to="/donate">Donate Now</Link>
               </Button>
               <Button 
                 variant="outline" 
                 size="lg" 
                 asChild
-                className="text-lg px-8 py-4 bg-white/10 border-white text-white hover:bg-white hover:text-secondary"
+                className="text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 bg-white/10 border-white text-white hover:bg-white hover:text-secondary w-full sm:w-auto"
               >
                 <Link to="/volunteer">Become a Volunteer</Link>
               </Button>
@@ -177,22 +177,22 @@ const Index = () => {
         </section>
 
         {/* Values Preview */}
-        <section className="py-20 bg-muted">
+        <section className="py-12 sm:py-20 bg-muted">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="text-4xl font-bold text-foreground mb-6">Our Foundation</h2>
-                <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+              <div className="text-center lg:text-left">
+                <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6">Our Foundation</h2>
+                <p className="text-lg sm:text-xl text-muted-foreground mb-6 sm:mb-8 leading-relaxed">
                   Built on the love of Christ and driven by compassion, we serve communities 
                   with integrity, unity, and unwavering commitment to transformation. Our work 
                   is guided by biblical principles and a deep understanding of local needs.
                 </p>
-                <Button variant="default" size="lg" asChild>
+                <Button variant="default" size="lg" asChild className="w-full sm:w-auto">
                   <Link to="/about">Discover Our Values</Link>
                 </Button>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 {[
                   { title: "Love & Compassion", description: "Leading with Christ's love in all we do" },
                   { title: "Integrity & Truth", description: "Operating with transparency and honesty" },

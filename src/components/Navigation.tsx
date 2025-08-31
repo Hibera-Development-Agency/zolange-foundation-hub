@@ -81,27 +81,27 @@ const Navigation = () => {
 
                 {/* Mobile Navigation */}
                 {isOpen && (
-                    <div className="md:hidden py-4 space-y-4">
+                    <div className="md:hidden py-4 space-y-2 bg-background/95 backdrop-blur-sm">
                         {navItems.map((item) => (
                             <Link
                                 key={item.href}
                                 to={item.href}
-                                className={`block py-2 transition-colors ${
+                                className={`block py-3 px-2 rounded-md transition-colors ${
                                     location.pathname === item.href
-                                        ? "text-primary font-medium"
-                                        : "text-foreground hover:text-primary"
+                                        ? "text-primary font-medium bg-primary/10"
+                                        : "text-foreground hover:text-primary hover:bg-muted/50"
                                 }`}
                                 onClick={() => setIsOpen(false)}
                             >
                                 {item.label[language as keyof typeof item.label]}
                             </Link>
                         ))}
-                        <div className="flex flex-col space-y-2 pt-4 border-t border-border">
+                        <div className="flex flex-col space-y-3 pt-4 border-t border-border">
                             <Button
                                 variant="ghost"
                                 size="sm"
                                 onClick={toggleLanguage}
-                                className="flex items-center justify-start space-x-2"
+                                className="flex items-center justify-start space-x-2 w-full"
                             >
                                 <Globe className="w-4 h-4"/>
                                 <span>{language === "en" ? "Français" : "English"}</span>

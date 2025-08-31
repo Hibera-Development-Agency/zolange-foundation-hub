@@ -16,28 +16,28 @@ const Volunteer = () => {
       
       <main className="pt-16">
         {/* Hero Section */}
-        <section className="bg-hero-gradient text-white py-20">
+        <section className="bg-hero-gradient text-white py-12 sm:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">Volunteer With Us</h1>
-            <p className="text-xl max-w-3xl mx-auto">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 px-2 sm:px-0">Volunteer With Us</h1>
+            <p className="text-lg sm:text-xl max-w-3xl mx-auto px-2 sm:px-0">
               Join our global community of volunteers and help us spread love, hope, and transformation around the world.
             </p>
           </div>
         </section>
 
         {/* What Volunteering Means */}
-        <section className="py-20">
+        <section className="py-12 sm:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-foreground mb-6">What Volunteering Means at Zolange Foundation</h2>
-              <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">What Volunteering Means at Zolange Foundation</h2>
+              <p className="text-lg sm:text-xl text-muted-foreground max-w-4xl mx-auto px-2 sm:px-0">
                 At Zolange Foundation, volunteering is more than giving your time – it's about becoming part of a family 
                 united in purpose, sharing Christ's love through action, and witnessing transformation in both the 
                 communities we serve and within ourselves.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
               {[
                 {
                   icon: Heart,
@@ -73,16 +73,16 @@ const Volunteer = () => {
         </section>
 
         {/* Volunteer Opportunities */}
-        <section className="py-20 bg-muted">
+        <section className="py-12 sm:py-20 bg-muted">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-foreground mb-6">Volunteer Opportunities</h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">Volunteer Opportunities</h2>
+              <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-2 sm:px-0">
                 Find the perfect way to contribute your skills and passion to our mission.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {[
                 {
                   title: "Field Volunteers",
@@ -145,11 +145,11 @@ const Volunteer = () => {
         </section>
 
         {/* Application Form */}
-        <section className="py-20">
+        <section className="py-12 sm:py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-foreground mb-6">Apply to Volunteer</h2>
-              <p className="text-xl text-muted-foreground">
+            <div className="text-center mb-8 sm:mb-12">
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">Apply to Volunteer</h2>
+              <p className="text-lg sm:text-xl text-muted-foreground px-2 sm:px-0">
                 Ready to join our mission? Fill out the application form below and we'll be in touch.
               </p>
             </div>
@@ -286,16 +286,16 @@ const Volunteer = () => {
         </section>
 
         {/* Testimonials */}
-        <section className="py-20 bg-muted">
+        <section className="py-12 sm:py-20 bg-muted">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-foreground mb-6">Volunteer Stories</h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">Volunteer Stories</h2>
+              <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-2 sm:px-0">
                 Hear from some of our amazing volunteers about their experiences with Zolange Foundation.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {[
                 {
                   name: "Emily Rodriguez",

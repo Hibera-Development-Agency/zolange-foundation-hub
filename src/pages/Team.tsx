@@ -42,10 +42,10 @@ const Team = () => {
 
             <main className="pt-16">
                 {/* Hero Section */}
-                <section className="bg-hero-gradient text-white py-20">
+                <section className="bg-hero-gradient text-white py-12 sm:py-20">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                        <h1 className="text-4xl md:text-6xl font-bold mb-6">Our Team</h1>
-                        <p className="text-xl max-w-3xl mx-auto">
+                        <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 px-2 sm:px-0">Our Team</h1>
+                        <p className="text-lg sm:text-xl max-w-3xl mx-auto px-2 sm:px-0">
                             Meet the dedicated individuals who make our mission possible through their expertise,
                             passion, and commitment.
                         </p>
@@ -53,10 +53,10 @@ const Team = () => {
                 </section>
 
                 {/* Team Grid */}
-                <section className="py-20">
+                <section className="py-12 sm:py-20">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         {/* Department Filter */}
-                        <div className="flex flex-wrap justify-center gap-2 mb-16">
+                        <div className="flex flex-wrap justify-center gap-2 mb-12 sm:mb-16">
                             {departments.map((dept) => (
                                 <Badge
                                     key={dept}
@@ -68,7 +68,7 @@ const Team = () => {
                             ))}
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                             {teamMembers.map((member, index) => (
                                 <Card key={index}
                                       className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
@@ -117,15 +117,15 @@ const Team = () => {
                 </section>
 
                 {/* Join Our Team */}
-                <section className="py-20 bg-muted">
+                <section className="py-12 sm:py-20 bg-muted">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                         <div className="max-w-4xl mx-auto">
-                            <h2 className="text-4xl font-bold text-foreground mb-6">Join Our Team</h2>
-                            <p className="text-xl text-muted-foreground mb-8">
+                            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">Join Our Team</h2>
+                            <p className="text-lg sm:text-xl text-muted-foreground mb-6 sm:mb-8 px-2 sm:px-0">
                                 We're always looking for passionate individuals who share our mission and want to make a
                                 difference in the world.
                             </p>
-                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center px-4 sm:px-0">
                                 <Link to={'/volunteer'}>
                                     <Button variant="default" size="lg">
                                         Volunteer With Us
@@ -137,17 +137,17 @@ const Team = () => {
                 </section>
 
                 {/* Values */}
-                <section className="py-20">
+                <section className="py-12 sm:py-20">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center mb-16">
-                            <h2 className="text-4xl font-bold text-foreground mb-6">Why Work With Us</h2>
-                            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                        <div className="text-center mb-12 sm:mb-16">
+                            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">Why Work With Us</h2>
+                            <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-2 sm:px-0">
                                 Join a team that's committed to making a lasting impact while fostering personal and
                                 professional growth.
                             </p>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
                             {[
                                 {
                                     title: "Meaningful Work",

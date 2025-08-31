@@ -19,8 +19,8 @@ const Footer = () => {
 
     return (
         <footer className="bg-primary text-primary-foreground">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                     {/* Logo & Mission */}
                     <div className="lg:col-span-2">
                         <div className="flex items-center space-x-2 mb-4">
@@ -94,11 +94,11 @@ const Footer = () => {
                 </div>
 
                 <div
-                    className="border-t border-primary-foreground/20 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                    className="border-t border-primary-foreground/20 mt-6 sm:mt-8 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
                     <p className="text-primary-foreground/60 text-sm">
                         © 2025 Zolange Foundation. All rights reserved.
                     </p>
-                    <p className="text-primary-foreground/60 text-sm mt-2 md:mt-0">
+                    <p className="text-primary-foreground/60 text-sm mt-2 sm:mt-0">
                         Built with love for the community by <a href="https://hibera-agency.com">Hibera Agency</a> 💙
                     </p>
                 </div>

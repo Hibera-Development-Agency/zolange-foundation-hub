@@ -18,7 +18,7 @@ const Hero = () => {
             {/* Content */}
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <div className="max-w-4xl mx-auto">
-                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+                    <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight px-2 sm:px-0">
                         Empowering the people by addressing their{" "}
                         <span className="text-secondary">
                         humanitarian and educational needs</span>

@@ -9,19 +9,19 @@ const About = () => {
       
       <main className="pt-16">
         {/* Hero Section */}
-        <section className="bg-hero-gradient text-white py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">About Zolange Foundation</h1>
-            <p className="text-xl max-w-3xl mx-auto">
-              We are the Zolange Foundation - empowering lives worldwide through hope and the love of Jesus Christ.
-            </p>
-          </div>
-        </section>
+                <section className="bg-hero-gradient text-white py-12 sm:py-20">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                        <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 px-2 sm:px-0">About Zolange Foundation</h1>
+                        <p className="text-lg sm:text-xl max-w-3xl mx-auto px-2 sm:px-0">
+                            We are the Zolange Foundation - empowering lives worldwide through hope and the love of Jesus Christ.
+                        </p>
+                    </div>
+                </section>
 
-        {/* Mission & Vision */}
-        <section className="py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                {/* Mission & Vision */}
+                <section className="py-12 sm:py-20">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
               <Card className="shadow-primary">
                 <CardContent className="p-8">
                   <h2 className="text-3xl font-bold text-primary mb-6">Our Mission</h2>
@@ -50,17 +50,17 @@ const About = () => {
           </div>
         </section>
 
-        {/* Values */}
-        <section className="py-20 bg-muted">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-foreground mb-6">Our Values</h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                These core values guide every decision we make and every action we take in our mission.
-              </p>
-            </div>
+                {/* Values */}
+                <section className="py-12 sm:py-20 bg-muted">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="text-center mb-12 sm:mb-16">
+                            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">Our Values</h2>
+                            <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-2 sm:px-0">
+                                These core values guide every decision we make and every action we take in our mission.
+                            </p>
+                        </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
               {[
                 {
                   title: "Love & Compassion",
@@ -86,12 +86,12 @@ const About = () => {
           </div>
         </section>
 
-        {/* History */}
-        <section className="py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-4xl font-bold text-foreground mb-8">Our Story</h2>
-              <div className="prose prose-lg max-w-none text-muted-foreground">
+                {/* History */}
+                <section className="py-12 sm:py-20">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="max-w-4xl mx-auto text-center">
+                            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-6 sm:mb-8 px-2 sm:px-0">Our Story</h2>
+                            <div className="prose prose-lg max-w-none text-muted-foreground px-2 sm:px-0">
                 <p className="mb-6">
                   Founded with a heart for service and a calling to spread God's love, the Zolange Foundation 
                   began as a small initiative to help local communities. What started as a simple desire to 
