@@ -66,6 +66,11 @@ const Navigation = () => {
                                 {language === "en" ? "Donate" : "Faire un Don"}
                             </Link>
                         </Button>
+                        <Button variant="outline" asChild>
+                            <Link to="/auth">
+                                {language === "en" ? "Dashboard" : "Tableau de Bord"}
+                            </Link>
+                        </Button>
                     </div>
 
                     {/* Mobile menu button */}
@@ -109,6 +114,11 @@ const Navigation = () => {
                             <Button variant="secondary" asChild className="w-full">
                                 <Link to="/donate" onClick={() => setIsOpen(false)}>
                                     {language === "en" ? "Donate" : "Faire un Don"}
+                                </Link>
+                            </Button>
+                            <Button variant="outline" asChild className="w-full">
+                                <Link to="/auth" onClick={() => setIsOpen(false)}>
+                                    {language === "en" ? "Dashboard" : "Tableau de Bord"}
                                 </Link>
                             </Button>
                         </div>
