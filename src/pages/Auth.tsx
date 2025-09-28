@@ -69,16 +69,14 @@ const Auth = () => {
     setLoading(true);
 
     try {
-      const redirectUrl = `${window.location.origin}/`;
-      
       const { error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          emailRedirectTo: redirectUrl,
           data: {
             full_name: fullName,
           },
+          emailRedirectTo: undefined, // Disable email confirmation
         },
       });
 
@@ -92,8 +90,8 @@ const Auth = () => {
       }
 
       toast({
-        title: "Check your email",
-        description: "We sent you a confirmation link. Please check your email and click the link to verify your account.",
+        title: "Account created successfully!",
+        description: "You can now sign in with your credentials.",
       });
     } catch (error) {
       toast({
