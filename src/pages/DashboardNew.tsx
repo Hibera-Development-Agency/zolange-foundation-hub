@@ -357,10 +357,13 @@ const Dashboard = () => {
         <section className="py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <Tabs defaultValue="projects" className="w-full">
-              <TabsList className="grid w-full grid-cols-3 mb-8">
+              <TabsList className={`grid w-full mb-8 ${profile?.role === 'admin' ? 'grid-cols-4' : 'grid-cols-3'}`}>
                 <TabsTrigger value="projects">Projects</TabsTrigger>
                 <TabsTrigger value="team">Team Members</TabsTrigger>
                 <TabsTrigger value="volunteers">Volunteer Positions</TabsTrigger>
+                {profile?.role === 'admin' && (
+                  <TabsTrigger value="users">User Management</TabsTrigger>
+                )}
               </TabsList>
 
               {/* Projects */}
@@ -562,6 +565,26 @@ const Dashboard = () => {
                   ))}
                 </div>
               </TabsContent>
+
+              {/* User Management (Admin Only) */}
+              {profile?.role === 'admin' && (
+                <TabsContent value="users" className="space-y-6">
+                  <div className="flex justify-between items-center">
+                    <h2 className="text-2xl font-bold text-foreground">User Management</h2>
+                    <Button asChild>
+                      <a href="/users">
+                        <Users className="w-4 h-4 mr-2" />
+                        Manage Users
+                      </a>
+                    </Button>
+                  </div>
+                  <Card className="p-6">
+                    <p className="text-center text-muted-foreground">
+                      Click "Manage Users" to access the full user management interface where you can create new users and manage their roles.
+                    </p>
+                  </Card>
+                </TabsContent>
+              )}
             </Tabs>
           </div>
         </section>

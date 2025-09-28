@@ -12,6 +12,7 @@ import Volunteer from "./pages/Volunteer";
 import Contact from "./pages/Contact";
 import Donate from "./pages/Donate";
 import Dashboard from "./pages/DashboardNew";
+import UserManagement from "./pages/UserManagement";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import {ScrollToTop} from "@/components/ScrollToTop.tsx";
@@ -37,6 +38,7 @@ const App = () => (
                     <Route path="/donate" element={<Donate/>}/>
                     <Route path="/auth" element={<Auth/>}/>
                     <Route path="/dashboard" element={<Dashboard/>}/>
+                    <Route path="/users" element={<UserManagement/>}/>
                     {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                     <Route path="*" element={<NotFound/>}/>
                 </Routes>
