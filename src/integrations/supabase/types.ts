@@ -190,6 +190,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      create_first_admin: {
+        Args: { user_email: string }
+        Returns: string
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -200,6 +204,10 @@ export type Database = {
       is_admin_or_editor: {
         Args: { _user_id: string }
         Returns: boolean
+      }
+      promote_to_admin: {
+        Args: { user_email: string }
+        Returns: string
       }
     }
     Enums: {
