@@ -22,18 +22,29 @@ export const useAuth = () => {
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
+        console.log("Auth state changed:", event, !!session);
         setSession(session);
         setUser(session?.user ?? null);
         
         if (session?.user) {
           // Fetch user profile
-          const { data: profileData } = await supabase
-            .from('profiles')
-            .select('*')
-            .eq('user_id', session.user.id)
-            .single();
-          
-          setProfile(profileData);
+          try {
+            const { data: profileData, error } = await supabase
+              .from('profiles')
+              .select('*')
+              .eq('user_id', session.user.id)
+              .single();
+            
+            if (error) {
+              console.error("Profile fetch error:", error);
+            } else {
+              console.log("Profile loaded:", profileData);
+            }
+            
+            setProfile(profileData);
+          } catch (err) {
+            console.error("Profile fetch exception:", err);
+          }
         } else {
           setProfile(null);
         }
@@ -43,7 +54,14 @@ export const useAuth = () => {
     );
 
     // Check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session }, error }) => {
+      if (error) {
+        console.error("Get session error:", error);
+        setLoading(false);
+        return;
+      }
+      
+      console.log("Initial session check:", !!session);
       setSession(session);
       setUser(session?.user ?? null);
       
@@ -53,7 +71,12 @@ export const useAuth = () => {
           .select('*')
           .eq('user_id', session.user.id)
           .single()
-          .then(({ data: profileData }) => {
+          .then(({ data: profileData, error }) => {
+            if (error) {
+              console.error("Initial profile fetch error:", error);
+            } else {
+              console.log("Initial profile loaded:", profileData);
+            }
             setProfile(profileData);
             setLoading(false);
           });

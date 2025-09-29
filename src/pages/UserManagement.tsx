@@ -41,15 +41,38 @@ const UserManagement = () => {
   });
 
   useEffect(() => {
-    if (authLoading) return;
+    console.log("UserManagement useEffect triggered", { 
+      authLoading, 
+      user: !!user, 
+      profile: profile?.role,
+      isAdminResult: isAdmin() 
+    });
     
-    if (!user || !isAdmin()) {
+    if (authLoading) {
+      console.log("Still loading auth...");
+      return;
+    }
+    
+    if (!user) {
+      console.log("No user, redirecting to dashboard");
       navigate("/dashboard");
       return;
     }
     
+    if (!profile) {
+      console.log("No profile loaded yet, waiting...");
+      return;
+    }
+    
+    if (!isAdmin()) {
+      console.log("User is not admin, redirecting to dashboard");
+      navigate("/dashboard");
+      return;
+    }
+    
+    console.log("All checks passed, fetching users...");
     fetchUsers();
-  }, [user, authLoading, isAdmin, navigate]);
+  }, [user, authLoading, profile, isAdmin, navigate]);
 
   const fetchUsers = async () => {
     try {
