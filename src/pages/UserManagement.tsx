@@ -76,7 +76,7 @@ const UserManagement = () => {
     setLoading(true);
 
     try {
-      // Create the user in Supabase Auth
+      // Create the user in Supabase Auth without email confirmation
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: newUserData.email,
         password: newUserData.password,
@@ -240,7 +240,7 @@ const UserManagement = () => {
                   <DialogHeader>
                     <DialogTitle>Create New User</DialogTitle>
                     <DialogDescription>
-                      Create a new user account. They will be able to sign in immediately.
+                      Create a new user account. No email confirmation required - they can sign in immediately.
                     </DialogDescription>
                   </DialogHeader>
                   <form onSubmit={handleCreateUser} className="space-y-4">
