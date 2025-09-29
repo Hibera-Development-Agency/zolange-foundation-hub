@@ -53,18 +53,36 @@ const UserManagement = () => {
 
   const fetchUsers = async () => {
     try {
+      console.log("Fetching users...");
+      
+      // First check if we have a valid session
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+      console.log("Session data:", sessionData);
+      
+      if (sessionError) {
+        console.error("Session error:", sessionError);
+        throw new Error("Authentication session expired. Please log in again.");
+      }
+      
+      if (!sessionData.session) {
+        throw new Error("No active session found. Please log in again.");
+      }
+
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
         .order('created_at', { ascending: false });
 
+      console.log("Profiles query result:", { data, error });
+
       if (error) throw error;
       if (data) setUsers(data);
-    } catch (error) {
+    } catch (error: any) {
+      console.error("Fetch users error:", error);
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Failed to fetch users",
+        description: error.message || "Failed to fetch users",
       });
     } finally {
       setLoading(false);
