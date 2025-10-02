@@ -79,6 +79,8 @@ const Dashboard = () => {
   const [editingItem, setEditingItem] = useState<any>(null);
   const [editingType, setEditingType] = useState<'project' | 'team' | 'volunteer' | 'user' | null>(null);
   const [newUserPassword, setNewUserPassword] = useState('');
+  const [resetPasswordUser, setResetPasswordUser] = useState<UserProfile | null>(null);
+  const [resetPassword, setResetPassword] = useState('');
 
   useEffect(() => {
     if (authLoading) return;
@@ -330,22 +332,61 @@ const Dashboard = () => {
     }
   };
 
-  const handleDelete = async (id: string, table: string) => {
+  const handleDelete = async (id: string, table: string, userId?: string) => {
     if (!confirm("Are you sure you want to delete this item?")) return;
     
     try {
-      const { error } = await supabase
-        .from(table as any)
-        .delete()
-        .eq('id', id);
+      // Special handling for user deletion
+      if (table === 'profiles' && userId) {
+        const { error } = await supabase.rpc('admin_delete_user', { 
+          user_id_to_delete: userId 
+        });
+        
+        if (error) throw error;
+        toast({ title: "Success", description: "User deleted successfully" });
+      } else {
+        const { error } = await supabase
+          .from(table as any)
+          .delete()
+          .eq('id', id);
+        
+        if (error) throw error;
+        toast({ title: "Success", description: "Item deleted successfully" });
+      }
       
-      if (error) throw error;
-      toast({ title: "Success", description: "Item deleted successfully" });
       fetchData();
     } catch (error: any) {
       toast({
         variant: "destructive",
         title: "Error", 
+        description: error.message,
+      });
+    }
+  };
+
+  const handleResetPassword = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!resetPasswordUser) return;
+
+    try {
+      const { error } = await supabase.rpc('admin_reset_user_password', {
+        target_user_id: resetPasswordUser.user_id,
+        new_password: resetPassword
+      });
+
+      if (error) throw error;
+      
+      toast({ 
+        title: "Success", 
+        description: `Password reset for ${resetPasswordUser.email}` 
+      });
+      
+      setResetPasswordUser(null);
+      setResetPassword('');
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error",
         description: error.message,
       });
     }
@@ -685,6 +726,16 @@ const Dashboard = () => {
                             </div>
                             <div className="flex items-center gap-2">
                               <Button 
+                                variant="outline" 
+                                size="sm"
+                                onClick={() => {
+                                  setResetPasswordUser(userProfile);
+                                  setResetPassword('');
+                                }}
+                              >
+                                Reset Password
+                              </Button>
+                              <Button 
                                 variant="ghost" 
                                 size="sm"
                                 onClick={() => {
@@ -698,7 +749,7 @@ const Dashboard = () => {
                                 variant="ghost" 
                                 size="sm" 
                                 className="text-destructive"
-                                onClick={() => handleDelete(userProfile.id, 'profiles')}
+                                onClick={() => handleDelete(userProfile.id, 'profiles', userProfile.user_id)}
                               >
                                 <Trash2 className="w-4 h-4" />
                               </Button>
@@ -1034,6 +1085,45 @@ const Dashboard = () => {
               </Button>
             </form>
           )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Password Reset Dialog */}
+      <Dialog open={resetPasswordUser !== null} onOpenChange={() => setResetPasswordUser(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Reset Password</DialogTitle>
+            <DialogDescription>
+              Set a new password for {resetPasswordUser?.email}
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleResetPassword} className="space-y-4">
+            <div>
+              <Label htmlFor="new-password">New Password *</Label>
+              <Input
+                id="new-password"
+                type="text"
+                value={resetPassword}
+                onChange={(e) => setResetPassword(e.target.value)}
+                placeholder="Enter new password"
+                required
+                minLength={6}
+              />
+              <p className="text-sm text-muted-foreground mt-1">
+                Minimum 6 characters. Share this password securely with the user.
+              </p>
+            </div>
+            <div className="flex justify-end gap-2">
+              <Button 
+                type="button" 
+                variant="outline" 
+                onClick={() => setResetPasswordUser(null)}
+              >
+                Cancel
+              </Button>
+              <Button type="submit">Reset Password</Button>
+            </div>
+          </form>
         </DialogContent>
       </Dialog>
 
