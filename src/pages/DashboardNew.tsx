@@ -694,6 +694,14 @@ const Dashboard = () => {
                               >
                                 <Edit className="w-4 h-4" />
                               </Button>
+                              <Button 
+                                variant="ghost" 
+                                size="sm" 
+                                className="text-destructive"
+                                onClick={() => handleDelete(userProfile.id, 'profiles')}
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
                             </div>
                           </div>
                         </CardContent>
