@@ -56,6 +56,16 @@ interface VolunteerPosition {
   is_active: boolean;
 }
 
+interface UserProfile {
+  id: string;
+  user_id: string;
+  email: string;
+  full_name: string | null;
+  role: 'admin' | 'editor';
+  created_at: string;
+  updated_at: string;
+}
+
 const Dashboard = () => {
   const navigate = useNavigate();
   const { user, profile, loading: authLoading, signOut, canManage } = useAuth();
@@ -64,9 +74,11 @@ const Dashboard = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
   const [volunteerPositions, setVolunteerPositions] = useState<VolunteerPosition[]>([]);
+  const [users, setUsers] = useState<UserProfile[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingItem, setEditingItem] = useState<any>(null);
-  const [editingType, setEditingType] = useState<'project' | 'team' | 'volunteer' | null>(null);
+  const [editingType, setEditingType] = useState<'project' | 'team' | 'volunteer' | 'user' | null>(null);
+  const [newUserPassword, setNewUserPassword] = useState('');
 
   useEffect(() => {
     if (authLoading) return;
@@ -90,6 +102,16 @@ const Dashboard = () => {
       if (projectsRes.data) setProjects(projectsRes.data);
       if (teamRes.data) setTeamMembers(teamRes.data);
       if (volunteerRes.data) setVolunteerPositions(volunteerRes.data);
+
+      // Fetch users if admin
+      if (profile?.role === 'admin') {
+        const { data: usersData } = await supabase
+          .from('profiles')
+          .select('*')
+          .order('created_at', { ascending: false });
+        
+        if (usersData) setUsers(usersData);
+      }
     } catch (error) {
       toast({
         variant: "destructive",
@@ -240,6 +262,65 @@ const Dashboard = () => {
       fetchData();
       setEditingItem(null);
       setEditingType(null);
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error.message,
+      });
+    }
+  };
+
+  const handleSaveUser = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    try {
+      if (editingItem) {
+        // Update existing user
+        const { error } = await supabase
+          .from('profiles')
+          .update({
+            full_name: formData.get('full_name') as string,
+            role: formData.get('role') as 'admin' | 'editor',
+          })
+          .eq('user_id', editingItem.user_id);
+        
+        if (error) throw error;
+        toast({ title: "Success", description: "User updated successfully" });
+      } else {
+        // Create new user
+        const email = formData.get('email') as string;
+        const password = newUserPassword;
+        const fullName = formData.get('full_name') as string;
+        const role = formData.get('role') as 'admin' | 'editor';
+
+        const { data: authData, error: authError } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: { full_name: fullName },
+            emailRedirectTo: undefined,
+          },
+        });
+
+        if (authError) throw authError;
+
+        if (role === 'admin' && authData.user) {
+          const { error: updateError } = await supabase
+            .from('profiles')
+            .update({ role: 'admin' })
+            .eq('user_id', authData.user.id);
+          
+          if (updateError) throw updateError;
+        }
+
+        toast({ title: "Success", description: "User created successfully" });
+      }
+      
+      fetchData();
+      setEditingItem(null);
+      setEditingType(null);
+      setNewUserPassword('');
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -571,18 +652,54 @@ const Dashboard = () => {
                 <TabsContent value="users" className="space-y-6">
                   <div className="flex justify-between items-center">
                     <h2 className="text-2xl font-bold text-foreground">User Management</h2>
-                    <Button asChild>
-                      <a href="/users">
-                        <Users className="w-4 h-4 mr-2" />
-                        Manage Users
-                      </a>
+                    <Button 
+                      onClick={() => {
+                        setEditingItem(null);
+                        setEditingType('user');
+                        setNewUserPassword('');
+                      }}
+                    >
+                      <Plus className="w-4 h-4 mr-2" />
+                      Add User
                     </Button>
                   </div>
-                  <Card className="p-6">
-                    <p className="text-center text-muted-foreground">
-                      Click "Manage Users" to access the full user management interface where you can create new users and manage their roles.
-                    </p>
-                  </Card>
+
+                  <div className="grid grid-cols-1 gap-6">
+                    {users.map((userProfile) => (
+                      <Card key={userProfile.id} className="hover:shadow-lg transition-shadow">
+                        <CardContent className="p-6">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <h3 className="text-xl font-semibold text-primary mb-1">
+                                {userProfile.full_name || 'No name'}
+                              </h3>
+                              <p className="text-muted-foreground mb-2">{userProfile.email}</p>
+                              <div className="flex items-center gap-2">
+                                <Badge variant={userProfile.role === "admin" ? "default" : "secondary"}>
+                                  {userProfile.role}
+                                </Badge>
+                                <span className="text-sm text-muted-foreground">
+                                  Created: {new Date(userProfile.created_at).toLocaleDateString()}
+                                </span>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Button 
+                                variant="ghost" 
+                                size="sm"
+                                onClick={() => {
+                                  setEditingItem(userProfile);
+                                  setEditingType('user');
+                                }}
+                              >
+                                <Edit className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
                 </TabsContent>
               )}
             </Tabs>
@@ -603,9 +720,15 @@ const Dashboard = () => {
             <DialogTitle>
               {editingItem ? 'Edit' : 'Add'} {
                 editingType === 'project' ? 'Project' :
-                editingType === 'team' ? 'Team Member' : 'Volunteer Position'
+                editingType === 'team' ? 'Team Member' : 
+                editingType === 'user' ? 'User' : 'Volunteer Position'
               }
             </DialogTitle>
+            {editingType === 'user' && !editingItem && (
+              <DialogDescription>
+                Create a new user account. No email confirmation required - they can sign in immediately.
+              </DialogDescription>
+            )}
           </DialogHeader>
           
           {editingType === 'project' && (
@@ -847,6 +970,59 @@ const Dashboard = () => {
               </div>
               <Button type="submit" className="w-full">
                 {editingItem ? 'Update' : 'Add'} Position
+              </Button>
+            </form>
+          )}
+
+          {editingType === 'user' && (
+            <form onSubmit={handleSaveUser} className="space-y-4">
+              <div>
+                <Label htmlFor="full_name">Full Name *</Label>
+                <Input 
+                  id="full_name" 
+                  name="full_name" 
+                  defaultValue={editingItem?.full_name || ''} 
+                  required 
+                />
+              </div>
+              {!editingItem && (
+                <>
+                  <div>
+                    <Label htmlFor="email">Email *</Label>
+                    <Input 
+                      id="email" 
+                      name="email" 
+                      type="email" 
+                      required 
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="password">Password *</Label>
+                    <Input 
+                      id="password" 
+                      type="password" 
+                      value={newUserPassword}
+                      onChange={(e) => setNewUserPassword(e.target.value)}
+                      required 
+                      minLength={6}
+                    />
+                  </div>
+                </>
+              )}
+              <div>
+                <Label htmlFor="role">Role *</Label>
+                <Select name="role" defaultValue={editingItem?.role || 'editor'}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="editor">Editor</SelectItem>
+                    <SelectItem value="admin">Admin</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <Button type="submit" className="w-full">
+                {editingItem ? 'Update' : 'Create'} User
               </Button>
             </form>
           )}
