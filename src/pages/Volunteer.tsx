@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,8 +9,39 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Heart, Globe, Users, Clock } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const Volunteer = () => {
+  const [positions, setPositions] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    const fetchPositions = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('volunteer_positions')
+          .select('*')
+          .eq('is_active', true)
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+        setPositions(data || []);
+      } catch (error: any) {
+        toast({
+          title: "Error loading volunteer positions",
+          description: error.message,
+          variant: "destructive",
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPositions();
+  }, [toast]);
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -82,65 +114,54 @@ const Volunteer = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              {[
-                {
-                  title: "Field Volunteers",
-                  description: "Work directly in communities on education, healthcare, and development projects.",
-                  commitment: "2-12 months",
-                  location: "On-site in Africa, Asia, or Latin America"
-                },
-                {
-                  title: "Remote Support",
-                  description: "Provide administrative, technical, or professional services from anywhere.",
-                  commitment: "5-15 hours/week",
-                  location: "Remote/Virtual"
-                },
-                {
-                  title: "Event Coordinators",
-                  description: "Help organize fundraising events, awareness campaigns, and community outreach.",
-                  commitment: "Project-based",
-                  location: "Local/Regional"
-                },
-                {
-                  title: "Medical Volunteers",
-                  description: "Healthcare professionals supporting our mobile clinics and health initiatives.",
-                  commitment: "1-6 months",
-                  location: "Field locations"
-                },
-                {
-                  title: "Educators & Trainers",
-                  description: "Develop curricula, train local teachers, and support educational programs.",
-                  commitment: "3-12 months",
-                  location: "Field or remote"
-                },
-                {
-                  title: "Communications",
-                  description: "Help tell our story through photography, writing, social media, and marketing.",
-                  commitment: "Flexible",
-                  location: "Remote or field"
-                }
-              ].map((opportunity, index) => (
-                <Card key={index}>
-                  <CardHeader>
-                    <CardTitle className="text-primary">{opportunity.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground mb-4">{opportunity.description}</p>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Commitment:</span>
-                        <span className="font-medium">{opportunity.commitment}</span>
+            {loading ? (
+              <div className="text-center py-12">
+                <p className="text-muted-foreground">Loading volunteer positions...</p>
+              </div>
+            ) : positions.length === 0 ? (
+              <div className="text-center py-12">
+                <p className="text-muted-foreground">No volunteer positions available at the moment.</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                {positions.map((position) => (
+                  <Card key={position.id}>
+                    <CardHeader>
+                      <CardTitle className="text-primary">{position.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground mb-4">{position.description}</p>
+                      {position.requirements && (
+                        <div className="mb-4">
+                          <p className="text-sm font-medium mb-1">Requirements:</p>
+                          <p className="text-sm text-muted-foreground">{position.requirements}</p>
+                        </div>
+                      )}
+                      <div className="space-y-2 text-sm">
+                        {position.category && (
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">Category:</span>
+                            <span className="font-medium">{position.category}</span>
+                          </div>
+                        )}
+                        {position.time_commitment && (
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">Commitment:</span>
+                            <span className="font-medium">{position.time_commitment}</span>
+                          </div>
+                        )}
+                        {position.location && (
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">Location:</span>
+                            <span className="font-medium">{position.location}</span>
+                          </div>
+                        )}
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Location:</span>
-                        <span className="font-medium">{opportunity.location}</span>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
           </div>
         </section>
 

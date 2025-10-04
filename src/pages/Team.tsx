@@ -1,40 +1,42 @@
+import { useEffect, useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import {Card, CardContent} from "@/components/ui/card";
-import {Badge} from "@/components/ui/badge";
-import {Linkedin, Mail, Twitter} from "lucide-react";
+import {Linkedin, Mail} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {Link} from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const Team = () => {
-    const teamMembers = [
-        {
-            name: "Ursula Mabolia",
-            position: "Founder & Executive Director",
-            bio: "[PLACEHOLDER BIO] With over 15 years in international development, Ursula leads our global initiatives with passion and expertise.",
-            department: "Leadership",
-            image: "",
-            social: {
-                email: "#",
-                linkedin: "#",
-                twitter: "#"
-            }
-        },
-        {
-            name: "Ruth Elengi",
-            position: "Programs Director",
-            bio: "[PLACEHOLDER BIO] Ruth oversees all our field operations across Africa, bringing deep cultural understanding and operational excellence.",
-            department: "Programs",
-            image: "",
-            social: {
-                email: "#",
-                linkedin: "#",
-                twitter: "#"
-            }
-        },
-    ];
+    const [teamMembers, setTeamMembers] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+    const { toast } = useToast();
 
-    const departments = ["All", "Leadership", "Programs", "Healthcare", "Education", "Outreach", "Technology"];
+    useEffect(() => {
+        const fetchTeamMembers = async () => {
+            try {
+                const { data, error } = await supabase
+                    .from('team_members')
+                    .select('*')
+                    .eq('is_active', true)
+                    .order('display_order', { ascending: true });
+
+                if (error) throw error;
+                setTeamMembers(data || []);
+            } catch (error: any) {
+                toast({
+                    title: "Error loading team members",
+                    description: error.message,
+                    variant: "destructive",
+                });
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchTeamMembers();
+    }, [toast]);
 
     return (
         <div className="min-h-screen bg-background">
@@ -55,64 +57,57 @@ const Team = () => {
                 {/* Team Grid */}
                 <section className="py-12 sm:py-20">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        {/* Department Filter */}
-                        <div className="flex flex-wrap justify-center gap-2 mb-12 sm:mb-16">
-                            {departments.map((dept) => (
-                                <Badge
-                                    key={dept}
-                                    variant={dept === "All" ? "default" : "outline"}
-                                    className="cursor-pointer px-4 py-2"
-                                >
-                                    {dept}
-                                </Badge>
-                            ))}
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                            {teamMembers.map((member, index) => (
-                                <Card key={index}
-                                      className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                                    <div className="aspect-square overflow-hidden">
-                                        <img
-                                            src={member.image}
-                                            alt={member.name}
-                                            className="w-full h-full object-cover"
-                                        />
-                                    </div>
-                                    <CardContent className="p-6">
-                                        <div className="mb-3">
-                                            <h3 className="text-xl font-semibold text-primary mb-1">{member.name}</h3>
-                                            <p className="text-secondary font-medium">{member.position}</p>
-                                            <Badge variant="outline" className="mt-2">
-                                                {member.department}
-                                            </Badge>
+                        {loading ? (
+                            <div className="text-center py-12">
+                                <p className="text-muted-foreground">Loading team members...</p>
+                            </div>
+                        ) : teamMembers.length === 0 ? (
+                            <div className="text-center py-12">
+                                <p className="text-muted-foreground">No team members available yet.</p>
+                            </div>
+                        ) : (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                                {teamMembers.map((member) => (
+                                    <Card key={member.id}
+                                          className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                                        <div className="aspect-square overflow-hidden bg-muted">
+                                            <img
+                                                src={member.image_url || '/placeholder.svg'}
+                                                alt={member.name}
+                                                className="w-full h-full object-cover"
+                                            />
                                         </div>
+                                        <CardContent className="p-6">
+                                            <div className="mb-3">
+                                                <h3 className="text-xl font-semibold text-primary mb-1">{member.name}</h3>
+                                                <p className="text-secondary font-medium">{member.position}</p>
+                                            </div>
 
-                                        <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
-                                            {member.bio}
-                                        </p>
+                                            <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
+                                                {member.description}
+                                            </p>
 
-                                        <div className="flex space-x-2">
-                                            <Button variant="ghost" size="sm" asChild>
-                                                <a href={`mailto:${member.social.email}`} aria-label="Email">
-                                                    <Mail className="w-4 h-4"/>
-                                                </a>
-                                            </Button>
-                                            <Button variant="ghost" size="sm" asChild>
-                                                <a href={member.social.linkedin} aria-label="LinkedIn">
-                                                    <Linkedin className="w-4 h-4"/>
-                                                </a>
-                                            </Button>
-                                            <Button variant="ghost" size="sm" asChild>
-                                                <a href={member.social.twitter} aria-label="Twitter">
-                                                    <Twitter className="w-4 h-4"/>
-                                                </a>
-                                            </Button>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            ))}
-                        </div>
+                                            <div className="flex space-x-2">
+                                                {member.email && (
+                                                    <Button variant="ghost" size="sm" asChild>
+                                                        <a href={`mailto:${member.email}`} aria-label="Email">
+                                                            <Mail className="w-4 h-4"/>
+                                                        </a>
+                                                    </Button>
+                                                )}
+                                                {member.linkedin_url && (
+                                                    <Button variant="ghost" size="sm" asChild>
+                                                        <a href={member.linkedin_url} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                                                            <Linkedin className="w-4 h-4"/>
+                                                        </a>
+                                                    </Button>
+                                                )}
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </section>
 
