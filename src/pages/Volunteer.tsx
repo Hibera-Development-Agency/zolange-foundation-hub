@@ -11,11 +11,61 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Heart, Globe, Users, Clock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Volunteer = () => {
+  const { language } = useLanguage();
   const [positions, setPositions] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+
+  const content = {
+    hero: {
+      title: { en: "Volunteer With Us", fr: "Devenez Bénévole" },
+      subtitle: { en: "Join our global community of volunteers and help us spread love, hope, and transformation around the world.", fr: "Rejoignez notre communauté mondiale de bénévoles et aidez-nous à répandre l'amour, l'espoir et la transformation dans le monde entier." }
+    },
+    meaning: {
+      title: { en: "What Volunteering Means at Zolange Foundation", fr: "Ce Que Signifie le Bénévolat à la Fondation Zolange" },
+      subtitle: { en: "At Zolange Foundation, volunteering is more than giving your time – it's about becoming part of a family united in purpose, sharing Christ's love through action, and witnessing transformation in both the communities we serve and within ourselves.", fr: "À la Fondation Zolange, le bénévolat est plus que donner de votre temps – il s'agit de devenir membre d'une famille unie dans un but commun, de partager l'amour du Christ par l'action et d'être témoin de la transformation dans les communautés que nous servons et en nous-mêmes." }
+    },
+    benefits: [
+      {
+        title: { en: "Love in Action", fr: "L'Amour en Action" },
+        description: { en: "Show Christ's love through practical service and genuine care for those in need.", fr: "Montrez l'amour du Christ par un service pratique et un soin authentique pour ceux dans le besoin." }
+      },
+      {
+        title: { en: "Global Impact", fr: "Impact Mondial" },
+        description: { en: "Be part of projects spanning multiple countries and touching thousands of lives.", fr: "Faites partie de projets couvrant plusieurs pays et touchant des milliers de vies." }
+      },
+      {
+        title: { en: "Community", fr: "Communauté" },
+        description: { en: "Join a supportive community of like-minded individuals committed to service.", fr: "Rejoignez une communauté solidaire de personnes partageant les mêmes idées et engagées dans le service." }
+      },
+      {
+        title: { en: "Flexible Commitment", fr: "Engagement Flexible" },
+        description: { en: "Choose from various time commitments that fit your schedule and availability.", fr: "Choisissez parmi divers engagements de temps qui correspondent à votre emploi du temps et à votre disponibilité." }
+      }
+    ],
+    opportunities: {
+      title: { en: "Volunteer Opportunities", fr: "Opportunités de Bénévolat" },
+      subtitle: { en: "Find the perfect way to contribute your skills and passion to our mission.", fr: "Trouvez le moyen idéal de contribuer vos compétences et votre passion à notre mission." },
+      loading: { en: "Loading volunteer positions...", fr: "Chargement des postes de bénévoles..." },
+      noPositions: { en: "No volunteer positions available at the moment.", fr: "Aucun poste de bénévole disponible pour le moment." },
+      requirements: { en: "Requirements:", fr: "Exigences:" },
+      category: { en: "Category:", fr: "Catégorie:" },
+      commitment: { en: "Commitment:", fr: "Engagement:" },
+      location: { en: "Location:", fr: "Lieu:" }
+    },
+    application: {
+      title: { en: "Apply to Volunteer", fr: "Postuler comme Bénévole" },
+      subtitle: { en: "Ready to join our mission? Fill out the application form below and we'll be in touch.", fr: "Prêt à rejoindre notre mission ? Remplissez le formulaire de candidature ci-dessous et nous vous contacterons." },
+      submit: { en: "Submit Application", fr: "Soumettre la Candidature" }
+    },
+    stories: {
+      title: { en: "Volunteer Stories", fr: "Témoignages de Bénévoles" },
+      subtitle: { en: "Hear from some of our amazing volunteers about their experiences with Zolange Foundation.", fr: "Écoutez certains de nos merveilleux bénévoles parler de leurs expériences avec la Fondation Zolange." }
+    }
+  };
 
   useEffect(() => {
     const fetchPositions = async () => {
@@ -50,9 +100,11 @@ const Volunteer = () => {
         {/* Hero Section */}
         <section className="bg-hero-gradient text-white py-12 sm:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 px-2 sm:px-0">Volunteer With Us</h1>
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 px-2 sm:px-0">
+              {content.hero.title[language as keyof typeof content.hero.title]}
+            </h1>
             <p className="text-lg sm:text-xl max-w-3xl mx-auto px-2 sm:px-0">
-              Join our global community of volunteers and help us spread love, hope, and transformation around the world.
+              {content.hero.subtitle[language as keyof typeof content.hero.subtitle]}
             </p>
           </div>
         </section>
@@ -61,45 +113,31 @@ const Volunteer = () => {
         <section className="py-12 sm:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12 sm:mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">What Volunteering Means at Zolange Foundation</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">
+                {content.meaning.title[language as keyof typeof content.meaning.title]}
+              </h2>
               <p className="text-lg sm:text-xl text-muted-foreground max-w-4xl mx-auto px-2 sm:px-0">
-                At Zolange Foundation, volunteering is more than giving your time – it's about becoming part of a family 
-                united in purpose, sharing Christ's love through action, and witnessing transformation in both the 
-                communities we serve and within ourselves.
+                {content.meaning.subtitle[language as keyof typeof content.meaning.subtitle]}
               </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-              {[
-                {
-                  icon: Heart,
-                  title: "Love in Action",
-                  description: "Show Christ's love through practical service and genuine care for those in need."
-                },
-                {
-                  icon: Globe,
-                  title: "Global Impact",
-                  description: "Be part of projects spanning multiple countries and touching thousands of lives."
-                },
-                {
-                  icon: Users,
-                  title: "Community",
-                  description: "Join a supportive community of like-minded individuals committed to service."
-                },
-                {
-                  icon: Clock,
-                  title: "Flexible Commitment",
-                  description: "Choose from various time commitments that fit your schedule and availability."
-                }
-              ].map((item, index) => (
-                <Card key={index} className="text-center hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6">
-                    <item.icon className="w-12 h-12 text-primary mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold text-primary mb-3">{item.title}</h3>
-                    <p className="text-muted-foreground text-sm">{item.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
+              {content.benefits.map((item, index) => {
+                const Icon = [Heart, Globe, Users, Clock][index];
+                return (
+                  <Card key={index} className="text-center hover:shadow-lg transition-shadow">
+                    <CardContent className="p-6">
+                      <Icon className="w-12 h-12 text-primary mx-auto mb-4" />
+                      <h3 className="text-xl font-semibold text-primary mb-3">
+                        {item.title[language as keyof typeof item.title]}
+                      </h3>
+                      <p className="text-muted-foreground text-sm">
+                        {item.description[language as keyof typeof item.description]}
+                      </p>
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -108,19 +146,25 @@ const Volunteer = () => {
         <section className="py-12 sm:py-20 bg-muted">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12 sm:mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">Volunteer Opportunities</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">
+                {content.opportunities.title[language as keyof typeof content.opportunities.title]}
+              </h2>
               <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-2 sm:px-0">
-                Find the perfect way to contribute your skills and passion to our mission.
+                {content.opportunities.subtitle[language as keyof typeof content.opportunities.subtitle]}
               </p>
             </div>
 
             {loading ? (
               <div className="text-center py-12">
-                <p className="text-muted-foreground">Loading volunteer positions...</p>
+                <p className="text-muted-foreground">
+                  {content.opportunities.loading[language as keyof typeof content.opportunities.loading]}
+                </p>
               </div>
             ) : positions.length === 0 ? (
               <div className="text-center py-12">
-                <p className="text-muted-foreground">No volunteer positions available at the moment.</p>
+                <p className="text-muted-foreground">
+                  {content.opportunities.noPositions[language as keyof typeof content.opportunities.noPositions]}
+                </p>
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -133,26 +177,34 @@ const Volunteer = () => {
                       <p className="text-muted-foreground mb-4">{position.description}</p>
                       {position.requirements && (
                         <div className="mb-4">
-                          <p className="text-sm font-medium mb-1">Requirements:</p>
+                          <p className="text-sm font-medium mb-1">
+                            {content.opportunities.requirements[language as keyof typeof content.opportunities.requirements]}
+                          </p>
                           <p className="text-sm text-muted-foreground">{position.requirements}</p>
                         </div>
                       )}
                       <div className="space-y-2 text-sm">
                         {position.category && (
                           <div className="flex justify-between">
-                            <span className="text-muted-foreground">Category:</span>
+                            <span className="text-muted-foreground">
+                              {content.opportunities.category[language as keyof typeof content.opportunities.category]}
+                            </span>
                             <span className="font-medium">{position.category}</span>
                           </div>
                         )}
                         {position.time_commitment && (
                           <div className="flex justify-between">
-                            <span className="text-muted-foreground">Commitment:</span>
+                            <span className="text-muted-foreground">
+                              {content.opportunities.commitment[language as keyof typeof content.opportunities.commitment]}
+                            </span>
                             <span className="font-medium">{position.time_commitment}</span>
                           </div>
                         )}
                         {position.location && (
                           <div className="flex justify-between">
-                            <span className="text-muted-foreground">Location:</span>
+                            <span className="text-muted-foreground">
+                              {content.opportunities.location[language as keyof typeof content.opportunities.location]}
+                            </span>
                             <span className="font-medium">{position.location}</span>
                           </div>
                         )}
@@ -169,9 +221,11 @@ const Volunteer = () => {
         <section className="py-12 sm:py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8 sm:mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">Apply to Volunteer</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">
+                {content.application.title[language as keyof typeof content.application.title]}
+              </h2>
               <p className="text-lg sm:text-xl text-muted-foreground px-2 sm:px-0">
-                Ready to join our mission? Fill out the application form below and we'll be in touch.
+                {content.application.subtitle[language as keyof typeof content.application.subtitle]}
               </p>
             </div>
 
@@ -298,7 +352,7 @@ const Volunteer = () => {
                   </div>
 
                   <Button type="submit" className="w-full" size="lg">
-                    Submit Application
+                    {content.application.submit[language as keyof typeof content.application.submit]}
                   </Button>
                 </form>
               </CardContent>
@@ -310,9 +364,11 @@ const Volunteer = () => {
         <section className="py-12 sm:py-20 bg-muted">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12 sm:mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">Volunteer Stories</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">
+                {content.stories.title[language as keyof typeof content.stories.title]}
+              </h2>
               <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-2 sm:px-0">
-                Hear from some of our amazing volunteers about their experiences with Zolange Foundation.
+                {content.stories.subtitle[language as keyof typeof content.stories.subtitle]}
               </p>
             </div>
 

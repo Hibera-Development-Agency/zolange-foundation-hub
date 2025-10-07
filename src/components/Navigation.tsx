@@ -2,10 +2,11 @@ import {useState} from "react";
 import {Link, useLocation} from "react-router-dom";
 import {Button} from "@/components/ui/button";
 import {Globe, Menu, X} from "lucide-react";
+import {useLanguage} from "@/contexts/LanguageContext";
 
 const Navigation = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [language, setLanguage] = useState("en");
+    const {language, toggleLanguage} = useLanguage();
     const location = useLocation();
 
     const navItems = [
@@ -16,10 +17,6 @@ const Navigation = () => {
         {href: "/volunteer", label: {en: "Volunteer", fr: "Bénévole"}},
         {href: "/contact", label: {en: "Contact", fr: "Contact"}},
     ];
-
-    const toggleLanguage = () => {
-        setLanguage(language === "en" ? "fr" : "en");
-    };
 
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">

@@ -16,6 +16,7 @@ import UserManagement from "./pages/UserManagement";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import {ScrollToTop} from "@/components/ScrollToTop.tsx";
+import {LanguageProvider} from "@/contexts/LanguageContext";
 
 
 const queryClient = new QueryClient();
@@ -23,26 +24,28 @@ const queryClient = new QueryClient();
 const App = () => (
     <QueryClientProvider client={queryClient}>
         <TooltipProvider>
-            <Toaster/>
-            <Sonner/>
-            <BrowserRouter>
-                <ScrollToTop/>
-                <Routes>
-                    <Route path="/" element={<Index/>}/>
-                    <Route path="/about" element={<About/>}/>
-                    <Route path="/projects" element={<Projects/>}/>
-                    <Route path="/projects/:slug" element={<ProjectDetail/>}/>
-                    <Route path="/team" element={<Team/>}/>
-                    <Route path="/volunteer" element={<Volunteer/>}/>
-                    <Route path="/contact" element={<Contact/>}/>
-                    <Route path="/donate" element={<Donate/>}/>
-                    <Route path="/auth" element={<Auth/>}/>
-                    <Route path="/dashboard" element={<Dashboard/>}/>
-                    <Route path="/users" element={<UserManagement/>}/>
-                    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                    <Route path="*" element={<NotFound/>}/>
-                </Routes>
-            </BrowserRouter>
+            <LanguageProvider>
+                <Toaster/>
+                <Sonner/>
+                <BrowserRouter>
+                    <ScrollToTop/>
+                    <Routes>
+                        <Route path="/" element={<Index/>}/>
+                        <Route path="/about" element={<About/>}/>
+                        <Route path="/projects" element={<Projects/>}/>
+                        <Route path="/projects/:slug" element={<ProjectDetail/>}/>
+                        <Route path="/team" element={<Team/>}/>
+                        <Route path="/volunteer" element={<Volunteer/>}/>
+                        <Route path="/contact" element={<Contact/>}/>
+                        <Route path="/donate" element={<Donate/>}/>
+                        <Route path="/auth" element={<Auth/>}/>
+                        <Route path="/dashboard" element={<Dashboard/>}/>
+                        <Route path="/users" element={<UserManagement/>}/>
+                        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                        <Route path="*" element={<NotFound/>}/>
+                    </Routes>
+                </BrowserRouter>
+            </LanguageProvider>
         </TooltipProvider>
     </QueryClientProvider>
 );
