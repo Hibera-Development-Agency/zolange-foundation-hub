@@ -14,7 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Edit, Trash2, Eye, Users, DollarSign, Calendar, MapPin, LogOut, Loader2 } from "lucide-react";
+import { Plus, Edit, Trash2, Eye, Users, DollarSign, Calendar, MapPin, LogOut, Loader2, Upload } from "lucide-react";
 
 interface Project {
   id: string;
@@ -30,6 +30,7 @@ interface Project {
   end_date: string;
   category: string;
   completion_percentage: number;
+  image_urls?: string[];
   created_at: string;
 }
 
@@ -81,6 +82,9 @@ const Dashboard = () => {
   const [newUserPassword, setNewUserPassword] = useState('');
   const [resetPasswordUser, setResetPasswordUser] = useState<UserProfile | null>(null);
   const [resetPassword, setResetPassword] = useState('');
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [projectImages, setProjectImages] = useState<string[]>([]);
+  const [teamMemberImage, setTeamMemberImage] = useState<string>('');
 
   useEffect(() => {
     if (authLoading) return;
@@ -132,6 +136,61 @@ const Dashboard = () => {
     }
   };
 
+  const uploadImage = async (file: File, bucket: string): Promise<string | null> => {
+    try {
+      setUploadingImage(true);
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
+      const filePath = `${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from(bucket)
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from(bucket)
+        .getPublicUrl(filePath);
+
+      return publicUrl;
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Upload Error",
+        description: error.message,
+      });
+      return null;
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
+  const handleProjectImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    const uploadedUrls: string[] = [];
+    for (let i = 0; i < files.length; i++) {
+      const url = await uploadImage(files[i], 'project-images');
+      if (url) uploadedUrls.push(url);
+    }
+
+    setProjectImages([...projectImages, ...uploadedUrls]);
+  };
+
+  const handleTeamImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const url = await uploadImage(file, 'team-images');
+    if (url) setTeamMemberImage(url);
+  };
+
+  const removeProjectImage = (index: number) => {
+    setProjectImages(projectImages.filter((_, i) => i !== index));
+  };
+
   const createSlug = (title: string): string => {
     return title
       .toLowerCase()
@@ -145,7 +204,7 @@ const Dashboard = () => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     try {
-      const projectData = {
+      const projectData: any = {
         title: formData.get('title') as string,
         description: formData.get('description') as string,
         slug: createSlug(formData.get('title') as string || ''),
@@ -157,6 +216,13 @@ const Dashboard = () => {
         category: formData.get('category') as string,
         completion_percentage: parseInt(formData.get('completion_percentage') as string) || 0,
       };
+
+      // Add images if any were uploaded
+      if (projectImages.length > 0) {
+        projectData.image_urls = editingItem?.image_urls 
+          ? [...editingItem.image_urls, ...projectImages]
+          : projectImages;
+      }
 
       if (editingItem) {
         const { error } = await supabase
@@ -178,6 +244,7 @@ const Dashboard = () => {
       fetchData();
       setEditingItem(null);
       setEditingType(null);
+      setProjectImages([]);
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -191,7 +258,7 @@ const Dashboard = () => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     try {
-      const memberData = {
+      const memberData: any = {
         name: formData.get('name') as string,
         position: formData.get('position') as string,
         description: formData.get('description') as string,
@@ -200,6 +267,11 @@ const Dashboard = () => {
         display_order: parseInt(formData.get('display_order') as string) || 0,
         is_active: formData.get('is_active') === 'true',
       };
+
+      // Add image if uploaded
+      if (teamMemberImage) {
+        memberData.image_url = teamMemberImage;
+      }
 
       if (editingItem) {
         const { error } = await supabase
@@ -221,6 +293,7 @@ const Dashboard = () => {
       fetchData();
       setEditingItem(null);
       setEditingType(null);
+      setTeamMemberImage('');
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -772,6 +845,8 @@ const Dashboard = () => {
         onOpenChange={() => {
           setEditingType(null);
           setEditingItem(null);
+          setProjectImages([]);
+          setTeamMemberImage('');
         }}
       >
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
@@ -879,7 +954,63 @@ const Dashboard = () => {
                   </SelectContent>
                 </Select>
               </div>
-              <Button type="submit" className="w-full">
+
+              {/* Image Upload Section */}
+              <div className="space-y-4 border-t pt-4">
+                <Label>Project Images</Label>
+                <p className="text-sm text-muted-foreground">
+                  Upload images for the project. The first image will be the cover image.
+                </p>
+                
+                {editingItem?.image_urls && editingItem.image_urls.length > 0 && (
+                  <div>
+                    <p className="text-sm font-medium mb-2">Existing Images:</p>
+                    <div className="grid grid-cols-3 gap-2">
+                      {editingItem.image_urls.map((url: string, idx: number) => (
+                        <div key={idx} className="relative">
+                          <img src={url} alt={`Project ${idx + 1}`} className="w-full h-20 object-cover rounded" />
+                          {idx === 0 && (
+                            <Badge className="absolute top-1 left-1 text-xs">Cover</Badge>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {projectImages.length > 0 && (
+                  <div>
+                    <p className="text-sm font-medium mb-2">New Images:</p>
+                    <div className="grid grid-cols-3 gap-2">
+                      {projectImages.map((url, idx) => (
+                        <div key={idx} className="relative group">
+                          <img src={url} alt={`Upload ${idx + 1}`} className="w-full h-20 object-cover rounded" />
+                          <Button
+                            type="button"
+                            variant="destructive"
+                            size="sm"
+                            className="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity h-6 w-6 p-0"
+                            onClick={() => removeProjectImage(idx)}
+                          >
+                            ×
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <Input
+                  type="file"
+                  accept="image/*,video/*"
+                  multiple
+                  onChange={handleProjectImageUpload}
+                  disabled={uploadingImage}
+                />
+                {uploadingImage && <p className="text-sm text-muted-foreground">Uploading...</p>}
+              </div>
+
+              <Button type="submit" className="w-full" disabled={uploadingImage}>
                 {editingItem ? 'Update' : 'Create'} Project
               </Button>
             </form>
@@ -953,7 +1084,46 @@ const Dashboard = () => {
                   </SelectContent>
                 </Select>
               </div>
-              <Button type="submit" className="w-full">
+
+              {/* Image Upload Section */}
+              <div className="space-y-4 border-t pt-4">
+                <Label>Team Member Photo</Label>
+                
+                {editingItem?.image_url && (
+                  <div>
+                    <p className="text-sm font-medium mb-2">Current Photo:</p>
+                    <img src={editingItem.image_url} alt={editingItem.name} className="w-32 h-32 object-cover rounded" />
+                  </div>
+                )}
+
+                {teamMemberImage && (
+                  <div>
+                    <p className="text-sm font-medium mb-2">New Photo:</p>
+                    <div className="relative inline-block">
+                      <img src={teamMemberImage} alt="Upload preview" className="w-32 h-32 object-cover rounded" />
+                      <Button
+                        type="button"
+                        variant="destructive"
+                        size="sm"
+                        className="absolute -top-2 -right-2 h-6 w-6 p-0 rounded-full"
+                        onClick={() => setTeamMemberImage('')}
+                      >
+                        ×
+                      </Button>
+                    </div>
+                  </div>
+                )}
+
+                <Input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleTeamImageUpload}
+                  disabled={uploadingImage}
+                />
+                {uploadingImage && <p className="text-sm text-muted-foreground">Uploading...</p>}
+              </div>
+
+              <Button type="submit" className="w-full" disabled={uploadingImage}>
                 {editingItem ? 'Update' : 'Add'} Team Member
               </Button>
             </form>
