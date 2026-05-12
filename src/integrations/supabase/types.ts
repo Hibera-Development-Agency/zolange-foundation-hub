@@ -10,216 +10,20 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "13.0.5"
+    PostgrestVersion: "14.5"
   }
   public: {
     Tables: {
-      profiles: {
-        Row: {
-          created_at: string
-          email: string
-          full_name: string | null
-          id: string
-          role: Database["public"]["Enums"]["app_role"]
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          email: string
-          full_name?: string | null
-          id?: string
-          role?: Database["public"]["Enums"]["app_role"]
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          created_at?: string
-          email?: string
-          full_name?: string | null
-          id?: string
-          role?: Database["public"]["Enums"]["app_role"]
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
-      projects: {
-        Row: {
-          beneficiaries: number | null
-          budget: number | null
-          category: string | null
-          completion_percentage: number | null
-          created_at: string
-          created_by: string | null
-          description: string | null
-          duration_months: number | null
-          end_date: string | null
-          id: string
-          image_urls: string[] | null
-          location: string | null
-          slug: string
-          start_date: string | null
-          status: string | null
-          title: string
-          updated_at: string
-        }
-        Insert: {
-          beneficiaries?: number | null
-          budget?: number | null
-          category?: string | null
-          completion_percentage?: number | null
-          created_at?: string
-          created_by?: string | null
-          description?: string | null
-          duration_months?: number | null
-          end_date?: string | null
-          id?: string
-          image_urls?: string[] | null
-          location?: string | null
-          slug: string
-          start_date?: string | null
-          status?: string | null
-          title: string
-          updated_at?: string
-        }
-        Update: {
-          beneficiaries?: number | null
-          budget?: number | null
-          category?: string | null
-          completion_percentage?: number | null
-          created_at?: string
-          created_by?: string | null
-          description?: string | null
-          duration_months?: number | null
-          end_date?: string | null
-          id?: string
-          image_urls?: string[] | null
-          location?: string | null
-          slug?: string
-          start_date?: string | null
-          status?: string | null
-          title?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      team_members: {
-        Row: {
-          created_at: string
-          description: string | null
-          display_order: number | null
-          email: string | null
-          id: string
-          image_url: string | null
-          is_active: boolean | null
-          linkedin_url: string | null
-          name: string
-          position: string
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          description?: string | null
-          display_order?: number | null
-          email?: string | null
-          id?: string
-          image_url?: string | null
-          is_active?: boolean | null
-          linkedin_url?: string | null
-          name: string
-          position: string
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          description?: string | null
-          display_order?: number | null
-          email?: string | null
-          id?: string
-          image_url?: string | null
-          is_active?: boolean | null
-          linkedin_url?: string | null
-          name?: string
-          position?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      volunteer_positions: {
-        Row: {
-          category: string | null
-          created_at: string
-          description: string
-          id: string
-          is_active: boolean | null
-          location: string | null
-          requirements: string | null
-          time_commitment: string | null
-          title: string
-          updated_at: string
-        }
-        Insert: {
-          category?: string | null
-          created_at?: string
-          description: string
-          id?: string
-          is_active?: boolean | null
-          location?: string | null
-          requirements?: string | null
-          time_commitment?: string | null
-          title: string
-          updated_at?: string
-        }
-        Update: {
-          category?: string | null
-          created_at?: string
-          description?: string
-          id?: string
-          is_active?: boolean | null
-          location?: string | null
-          requirements?: string | null
-          time_commitment?: string | null
-          title?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      admin_delete_user: {
-        Args: { user_id_to_delete: string }
-        Returns: string
-      }
-      admin_reset_user_password: {
-        Args: { new_password: string; target_user_id: string }
-        Returns: string
-      }
-      create_first_admin: {
-        Args: { user_email: string }
-        Returns: string
-      }
-      has_role: {
-        Args: {
-          _role: Database["public"]["Enums"]["app_role"]
-          _user_id: string
-        }
-        Returns: boolean
-      }
-      is_admin_or_editor: {
-        Args: { _user_id: string }
-        Returns: boolean
-      }
-      promote_to_admin: {
-        Args: { user_email: string }
-        Returns: string
-      }
+      [_ in never]: never
     }
     Enums: {
-      app_role: "admin" | "editor"
+      [_ in never]: never
     }
     CompositeTypes: {
       [_ in never]: never
@@ -346,8 +150,6 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {
-      app_role: ["admin", "editor"],
-    },
+    Enums: {},
   },
 } as const
