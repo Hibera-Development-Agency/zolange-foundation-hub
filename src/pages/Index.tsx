@@ -5,47 +5,50 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Heart, Users, Globe, BookOpen, Stethoscope, Droplets } from "lucide-react";
 import educationImage from "@/assets/education-project.jpg";
 import healthcareImage from "@/assets/healthcare-project.jpg";
 import waterImage from "@/assets/water-project.jpg";
 
 const Index = () => {
+  const { t } = useLanguage();
+
   const featuredProjects = [
     {
       id: 1,
-      title: "Education for All",
-      description: "Providing quality education and school supplies to underprivileged children.",
+      title: t("home.project.education.title"),
+      description: t("home.project.education.description"),
       image: educationImage,
-      location: "Ghana, West Africa",
-      beneficiaries: "2,500+ children",
+      location: t("home.project.education.location"),
+      beneficiaries: t("home.project.education.beneficiaries"),
       icon: BookOpen
     },
     {
       id: 2,
-      title: "Healthcare Initiative",
-      description: "Mobile health clinics bringing medical care to remote villages.",
+      title: t("home.project.healthcare.title"),
+      description: t("home.project.healthcare.description"),
       image: healthcareImage,
-      location: "Nigeria, West Africa", 
-      beneficiaries: "15,000+ people",
+      location: t("home.project.healthcare.location"),
+      beneficiaries: t("home.project.healthcare.beneficiaries"),
       icon: Stethoscope
     },
     {
       id: 3,
-      title: "Clean Water Access",
-      description: "Building wells and sanitation facilities for clean water access.",
+      title: t("home.project.water.title"),
+      description: t("home.project.water.description"),
       image: waterImage,
-      location: "Philippines, Southeast Asia",
-      beneficiaries: "8,000+ people",
+      location: t("home.project.water.location"),
+      beneficiaries: t("home.project.water.beneficiaries"),
       icon: Droplets
     }
   ];
 
   const impactStats = [
-    { icon: Users, number: "25,000+", label: "Lives Impacted" },
-    { icon: Globe, number: "12", label: "Countries Served" },
-    { icon: Heart, number: "50+", label: "Active Projects" },
-    { icon: Users, number: "1,200+", label: "Volunteers" }
+    { icon: Users, number: "25,000+", label: t("home.impact.lives") },
+    { icon: Globe, number: "12", label: t("home.impact.countries") },
+    { icon: Heart, number: "50+", label: t("home.impact.projects") },
+    { icon: Users, number: "1,200+", label: t("home.impact.volunteers") }
   ];
 
   return (
@@ -60,20 +63,16 @@ const Index = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12 sm:mb-16">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">
-                We are the Zolange Foundation
+                {t("home.mission.title")}
               </h2>
               <p className="text-lg sm:text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2 sm:px-0">
-                Our vision centers on creating a profound difference in the lives of 
-                people worldwide, regardless of their backgrounds or ages. We aim to 
-                inspire and empower individuals, renewing hope, offering comfort, 
-                and fostering joy and peace through the transformative love of our 
-                Lord Jesus Christ.
+                {t("home.mission.text")}
               </p>
             </div>
             
             <div className="flex justify-center">
               <Button variant="default" size="lg" asChild>
-                <Link to="/about">Learn More About Us</Link>
+                <Link to="/about">{t("home.mission.cta")}</Link>
               </Button>
             </div>
           </div>
@@ -83,9 +82,9 @@ const Index = () => {
         <section className="py-12 sm:py-20 bg-muted">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12 sm:mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">Our Featured Projects</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">{t("home.projects.title")}</h2>
               <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-2 sm:px-0">
-                Discover the impactful work we're doing in communities around the world.
+                {t("home.projects.subtitle")}
               </p>
             </div>
 
@@ -112,7 +111,7 @@ const Index = () => {
                       <Badge variant="outline">{project.beneficiaries}</Badge>
                     </div>
                     <Button variant="outline" className="w-full" asChild>
-                      <Link to="/projects">View Details</Link>
+                      <Link to="/projects">{t("common.viewDetails")}</Link>
                     </Button>
                   </CardContent>
                 </Card>
@@ -121,7 +120,7 @@ const Index = () => {
 
             <div className="text-center mt-8 sm:mt-12">
               <Button variant="default" size="lg" asChild className="w-full sm:w-auto">
-                <Link to="/projects">View All Projects</Link>
+                <Link to="/projects">{t("home.projects.viewAll")}</Link>
               </Button>
             </div>
           </div>
@@ -131,9 +130,9 @@ const Index = () => {
         <section className="py-12 sm:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12 sm:mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">Our Global Impact</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">{t("home.impact.title")}</h2>
               <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-2 sm:px-0">
-                Together, we're making a real difference in communities around the world.
+                {t("home.impact.subtitle")}
               </p>
             </div>
 
@@ -154,15 +153,14 @@ const Index = () => {
         {/* Call to Action */}
         <section className="py-12 sm:py-20 bg-donation-gradient text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 px-2 sm:px-0">Join Our Mission Today</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 px-2 sm:px-0">{t("home.cta.title")}</h2>
             <p className="text-lg sm:text-xl mb-6 sm:mb-8 max-w-3xl mx-auto px-2 sm:px-0">
-              Every contribution, whether through donation or volunteering, helps us expand 
-              our reach and deepen our impact in communities worldwide. Be part of the transformation.
+              {t("home.cta.text")}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center px-4 sm:px-0">
               <Button variant="secondary" size="lg" asChild className="text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 w-full sm:w-auto">
-                <Link to="/donate">Donate Now</Link>
+                <Link to="/donate">{t("common.donateNow")}</Link>
               </Button>
               <Button 
                 variant="outline" 
@@ -170,7 +168,7 @@ const Index = () => {
                 asChild
                 className="text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 bg-white/10 border-white text-white hover:bg-white hover:text-secondary w-full sm:w-auto"
               >
-                <Link to="/volunteer">Become a Volunteer</Link>
+                <Link to="/volunteer">{t("home.cta.volunteer")}</Link>
               </Button>
             </div>
           </div>
@@ -181,23 +179,21 @@ const Index = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
               <div className="text-center lg:text-left">
-                <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6">Our Foundation</h2>
+                <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6">{t("home.foundation.title")}</h2>
                 <p className="text-lg sm:text-xl text-muted-foreground mb-6 sm:mb-8 leading-relaxed">
-                  Built on the love of Christ and driven by compassion, we serve communities 
-                  with integrity, unity, and unwavering commitment to transformation. Our work 
-                  is guided by biblical principles and a deep understanding of local needs.
+                  {t("home.foundation.text")}
                 </p>
                 <Button variant="default" size="lg" asChild className="w-full sm:w-auto">
-                  <Link to="/about">Discover Our Values</Link>
+                  <Link to="/about">{t("home.foundation.cta")}</Link>
                 </Button>
               </div>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 {[
-                  { title: "Love & Compassion", description: "Leading with Christ's love in all we do" },
-                  { title: "Integrity & Truth", description: "Operating with transparency and honesty" },
-                  { title: "Community & Unity", description: "Building bridges across cultures" },
-                  { title: "Sustainable Impact", description: "Creating lasting positive change" }
+                  { title: t("home.value.love.title"), description: t("home.value.love.description") },
+                  { title: t("home.value.integrity.title"), description: t("home.value.integrity.description") },
+                  { title: t("home.value.community.title"), description: t("home.value.community.description") },
+                  { title: t("home.value.sustainable.title"), description: t("home.value.sustainable.description") }
                 ].map((value, index) => (
                   <Card key={index} className="text-center hover:shadow-lg transition-shadow">
                     <CardContent className="p-6">

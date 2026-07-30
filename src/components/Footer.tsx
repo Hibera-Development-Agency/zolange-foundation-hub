@@ -28,7 +28,7 @@ const Footer = () => {
                     <div className="lg:col-span-2">
                         <div className="flex items-center space-x-2 mb-4">
                             <div className="w-20 h-20 bg-secondary rounded-lg flex items-center justify-center">
-                                <img src="/logo.jpeg" alt={t("hero.imageAlt")}/>
+                                <img src="/logo.jpeg" alt={t("common.logoAlt")}/>
                             </div>
                             <span className="text-xl font-bold">Zolange Foundation</span>
                         </div>
