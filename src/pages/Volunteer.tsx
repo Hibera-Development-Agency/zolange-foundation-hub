@@ -14,58 +14,50 @@ import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Volunteer = () => {
-  const { language } = useLanguage();
+  const { t } = useLanguage();
   const [positions, setPositions] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
 
-  const content = {
-    hero: {
-      title: { en: "Volunteer With Us", fr: "Devenez Bénévole" },
-      subtitle: { en: "Join our global community of volunteers and help us spread love, hope, and transformation around the world.", fr: "Rejoignez notre communauté mondiale de bénévoles et aidez-nous à répandre l'amour, l'espoir et la transformation dans le monde entier." }
+  const benefits = [
+    {
+      title: t("volunteer.benefit.love.title"),
+      description: t("volunteer.benefit.love.description")
     },
-    meaning: {
-      title: { en: "What Volunteering Means at Zolange Foundation", fr: "Ce Que Signifie le Bénévolat à la Fondation Zolange" },
-      subtitle: { en: "At Zolange Foundation, volunteering is more than giving your time – it's about becoming part of a family united in purpose, sharing Christ's love through action, and witnessing transformation in both the communities we serve and within ourselves.", fr: "À la Fondation Zolange, le bénévolat est plus que donner de votre temps – il s'agit de devenir membre d'une famille unie dans un but commun, de partager l'amour du Christ par l'action et d'être témoin de la transformation dans les communautés que nous servons et en nous-mêmes." }
+    {
+      title: t("volunteer.benefit.impact.title"),
+      description: t("volunteer.benefit.impact.description")
     },
-    benefits: [
-      {
-        title: { en: "Love in Action", fr: "L'Amour en Action" },
-        description: { en: "Show Christ's love through practical service and genuine care for those in need.", fr: "Montrez l'amour du Christ par un service pratique et un soin authentique pour ceux dans le besoin." }
-      },
-      {
-        title: { en: "Global Impact", fr: "Impact Mondial" },
-        description: { en: "Be part of projects spanning multiple countries and touching thousands of lives.", fr: "Faites partie de projets couvrant plusieurs pays et touchant des milliers de vies." }
-      },
-      {
-        title: { en: "Community", fr: "Communauté" },
-        description: { en: "Join a supportive community of like-minded individuals committed to service.", fr: "Rejoignez une communauté solidaire de personnes partageant les mêmes idées et engagées dans le service." }
-      },
-      {
-        title: { en: "Flexible Commitment", fr: "Engagement Flexible" },
-        description: { en: "Choose from various time commitments that fit your schedule and availability.", fr: "Choisissez parmi divers engagements de temps qui correspondent à votre emploi du temps et à votre disponibilité." }
-      }
-    ],
-    opportunities: {
-      title: { en: "Volunteer Opportunities", fr: "Opportunités de Bénévolat" },
-      subtitle: { en: "Find the perfect way to contribute your skills and passion to our mission.", fr: "Trouvez le moyen idéal de contribuer vos compétences et votre passion à notre mission." },
-      loading: { en: "Loading volunteer positions...", fr: "Chargement des postes de bénévoles..." },
-      noPositions: { en: "No volunteer positions available at the moment.", fr: "Aucun poste de bénévole disponible pour le moment." },
-      requirements: { en: "Requirements:", fr: "Exigences:" },
-      category: { en: "Category:", fr: "Catégorie:" },
-      commitment: { en: "Commitment:", fr: "Engagement:" },
-      location: { en: "Location:", fr: "Lieu:" }
+    {
+      title: t("volunteer.benefit.community.title"),
+      description: t("volunteer.benefit.community.description")
     },
-    application: {
-      title: { en: "Apply to Volunteer", fr: "Postuler comme Bénévole" },
-      subtitle: { en: "Ready to join our mission? Fill out the application form below and we'll be in touch.", fr: "Prêt à rejoindre notre mission ? Remplissez le formulaire de candidature ci-dessous et nous vous contacterons." },
-      submit: { en: "Submit Application", fr: "Soumettre la Candidature" }
-    },
-    stories: {
-      title: { en: "Volunteer Stories", fr: "Témoignages de Bénévoles" },
-      subtitle: { en: "Hear from some of our amazing volunteers about their experiences with Zolange Foundation.", fr: "Écoutez certains de nos merveilleux bénévoles parler de leurs expériences avec la Fondation Zolange." }
+    {
+      title: t("volunteer.benefit.flexible.title"),
+      description: t("volunteer.benefit.flexible.description")
     }
-  };
+  ];
+
+  const testimonials = [
+    {
+      name: t("volunteer.testimonial1.name"),
+      role: t("volunteer.testimonial1.role"),
+      quote: t("volunteer.testimonial1.quote"),
+      duration: t("volunteer.testimonial1.duration")
+    },
+    {
+      name: t("volunteer.testimonial2.name"),
+      role: t("volunteer.testimonial2.role"),
+      quote: t("volunteer.testimonial2.quote"),
+      duration: t("volunteer.testimonial2.duration")
+    },
+    {
+      name: t("volunteer.testimonial3.name"),
+      role: t("volunteer.testimonial3.role"),
+      quote: t("volunteer.testimonial3.quote"),
+      duration: t("volunteer.testimonial3.duration")
+    }
+  ];
 
   useEffect(() => {
     const fetchPositions = async () => {
@@ -80,7 +72,7 @@ const Volunteer = () => {
         setPositions(data || []);
       } catch (error: any) {
         toast({
-          title: "Error loading volunteer positions",
+          title: t("volunteer.toast.errorTitle"),
           description: error.message,
           variant: "destructive",
         });
@@ -101,10 +93,10 @@ const Volunteer = () => {
         <section className="bg-hero-gradient text-white py-12 sm:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 px-2 sm:px-0">
-              {content.hero.title[language as keyof typeof content.hero.title]}
+              {t("volunteer.hero.title")}
             </h1>
             <p className="text-lg sm:text-xl max-w-3xl mx-auto px-2 sm:px-0">
-              {content.hero.subtitle[language as keyof typeof content.hero.subtitle]}
+              {t("volunteer.hero.subtitle")}
             </p>
           </div>
         </section>
@@ -114,25 +106,25 @@ const Volunteer = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12 sm:mb-16">
               <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">
-                {content.meaning.title[language as keyof typeof content.meaning.title]}
+                {t("volunteer.meaning.title")}
               </h2>
               <p className="text-lg sm:text-xl text-muted-foreground max-w-4xl mx-auto px-2 sm:px-0">
-                {content.meaning.subtitle[language as keyof typeof content.meaning.subtitle]}
+                {t("volunteer.meaning.subtitle")}
               </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-              {content.benefits.map((item, index) => {
+              {benefits.map((item, index) => {
                 const Icon = [Heart, Globe, Users, Clock][index];
                 return (
                   <Card key={index} className="text-center hover:shadow-lg transition-shadow">
                     <CardContent className="p-6">
                       <Icon className="w-12 h-12 text-primary mx-auto mb-4" />
                       <h3 className="text-xl font-semibold text-primary mb-3">
-                        {item.title[language as keyof typeof item.title]}
+                        {item.title}
                       </h3>
                       <p className="text-muted-foreground text-sm">
-                        {item.description[language as keyof typeof item.description]}
+                        {item.description}
                       </p>
                     </CardContent>
                   </Card>
@@ -147,23 +139,23 @@ const Volunteer = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12 sm:mb-16">
               <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">
-                {content.opportunities.title[language as keyof typeof content.opportunities.title]}
+                {t("volunteer.opportunities.title")}
               </h2>
               <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-2 sm:px-0">
-                {content.opportunities.subtitle[language as keyof typeof content.opportunities.subtitle]}
+                {t("volunteer.opportunities.subtitle")}
               </p>
             </div>
 
             {loading ? (
               <div className="text-center py-12">
                 <p className="text-muted-foreground">
-                  {content.opportunities.loading[language as keyof typeof content.opportunities.loading]}
+                  {t("volunteer.opportunities.loading")}
                 </p>
               </div>
             ) : positions.length === 0 ? (
               <div className="text-center py-12">
                 <p className="text-muted-foreground">
-                  {content.opportunities.noPositions[language as keyof typeof content.opportunities.noPositions]}
+                  {t("volunteer.opportunities.noPositions")}
                 </p>
               </div>
             ) : (
@@ -178,7 +170,7 @@ const Volunteer = () => {
                       {position.requirements && (
                         <div className="mb-4">
                           <p className="text-sm font-medium mb-1">
-                            {content.opportunities.requirements[language as keyof typeof content.opportunities.requirements]}
+                            {t("volunteer.opportunities.requirements")}
                           </p>
                           <p className="text-sm text-muted-foreground">{position.requirements}</p>
                         </div>
@@ -187,7 +179,7 @@ const Volunteer = () => {
                         {position.category && (
                           <div className="flex justify-between">
                             <span className="text-muted-foreground">
-                              {content.opportunities.category[language as keyof typeof content.opportunities.category]}
+                              {t("volunteer.opportunities.category")}
                             </span>
                             <span className="font-medium">{position.category}</span>
                           </div>
@@ -195,7 +187,7 @@ const Volunteer = () => {
                         {position.time_commitment && (
                           <div className="flex justify-between">
                             <span className="text-muted-foreground">
-                              {content.opportunities.commitment[language as keyof typeof content.opportunities.commitment]}
+                              {t("volunteer.opportunities.commitment")}
                             </span>
                             <span className="font-medium">{position.time_commitment}</span>
                           </div>
@@ -203,7 +195,7 @@ const Volunteer = () => {
                         {position.location && (
                           <div className="flex justify-between">
                             <span className="text-muted-foreground">
-                              {content.opportunities.location[language as keyof typeof content.opportunities.location]}
+                              {t("volunteer.opportunities.location")}
                             </span>
                             <span className="font-medium">{position.location}</span>
                           </div>
@@ -222,10 +214,10 @@ const Volunteer = () => {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8 sm:mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">
-                {content.application.title[language as keyof typeof content.application.title]}
+                {t("volunteer.application.title")}
               </h2>
               <p className="text-lg sm:text-xl text-muted-foreground px-2 sm:px-0">
-                {content.application.subtitle[language as keyof typeof content.application.subtitle]}
+                {t("volunteer.application.subtitle")}
               </p>
             </div>
 
@@ -235,36 +227,36 @@ const Volunteer = () => {
                   {/* Personal Information */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <Label htmlFor="firstName">First Name *</Label>
+                      <Label htmlFor="firstName">{t("volunteer.form.firstName")}</Label>
                       <Input id="firstName" required />
                     </div>
                     <div>
-                      <Label htmlFor="lastName">Last Name *</Label>
+                      <Label htmlFor="lastName">{t("volunteer.form.lastName")}</Label>
                       <Input id="lastName" required />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <Label htmlFor="email">Email Address *</Label>
+                      <Label htmlFor="email">{t("volunteer.form.email")}</Label>
                       <Input id="email" type="email" required />
                     </div>
                     <div>
-                      <Label htmlFor="phone">Phone Number</Label>
+                      <Label htmlFor="phone">{t("volunteer.form.phone")}</Label>
                       <Input id="phone" type="tel" />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <Label htmlFor="country">Country *</Label>
+                      <Label htmlFor="country">{t("volunteer.form.country")}</Label>
                       <Input id="country" required />
                     </div>
                     <div>
-                      <Label htmlFor="age">Age</Label>
+                      <Label htmlFor="age">{t("volunteer.form.age")}</Label>
                       <Select>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select age range" />
+                          <SelectValue placeholder={t("volunteer.form.agePlaceholder")} />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="18-25">18-25</SelectItem>
@@ -279,52 +271,52 @@ const Volunteer = () => {
 
                   {/* Volunteer Preferences */}
                   <div>
-                    <Label htmlFor="interests">Areas of Interest *</Label>
+                    <Label htmlFor="interests">{t("volunteer.form.interests")}</Label>
                     <Select>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select your primary interest" />
+                        <SelectValue placeholder={t("volunteer.form.interestsPlaceholder")} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="education">Education</SelectItem>
-                        <SelectItem value="healthcare">Healthcare</SelectItem>
-                        <SelectItem value="community-development">Community Development</SelectItem>
-                        <SelectItem value="administration">Administration</SelectItem>
-                        <SelectItem value="communications">Communications</SelectItem>
-                        <SelectItem value="technology">Technology</SelectItem>
+                        <SelectItem value="education">{t("volunteer.form.interest.education")}</SelectItem>
+                        <SelectItem value="healthcare">{t("volunteer.form.interest.healthcare")}</SelectItem>
+                        <SelectItem value="community-development">{t("volunteer.form.interest.communityDevelopment")}</SelectItem>
+                        <SelectItem value="administration">{t("volunteer.form.interest.administration")}</SelectItem>
+                        <SelectItem value="communications">{t("volunteer.form.interest.communications")}</SelectItem>
+                        <SelectItem value="technology">{t("volunteer.form.interest.technology")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div>
-                    <Label htmlFor="skills">Skills & Experience</Label>
+                    <Label htmlFor="skills">{t("volunteer.form.skills")}</Label>
                     <Textarea 
                       id="skills" 
-                      placeholder="Tell us about your relevant skills, experience, and qualifications..."
+                      placeholder={t("volunteer.form.skillsPlaceholder")}
                       className="min-h-[100px]"
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="availability">Availability</Label>
+                    <Label htmlFor="availability">{t("volunteer.form.availability")}</Label>
                     <Select>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select your availability" />
+                        <SelectValue placeholder={t("volunteer.form.availabilityPlaceholder")} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="part-time">Part-time (5-15 hours/week)</SelectItem>
-                        <SelectItem value="full-time-remote">Full-time Remote</SelectItem>
-                        <SelectItem value="short-term-field">Short-term Field (1-3 months)</SelectItem>
-                        <SelectItem value="long-term-field">Long-term Field (6+ months)</SelectItem>
-                        <SelectItem value="project-based">Project-based</SelectItem>
+                        <SelectItem value="part-time">{t("volunteer.form.availability.partTime")}</SelectItem>
+                        <SelectItem value="full-time-remote">{t("volunteer.form.availability.fullTimeRemote")}</SelectItem>
+                        <SelectItem value="short-term-field">{t("volunteer.form.availability.shortTermField")}</SelectItem>
+                        <SelectItem value="long-term-field">{t("volunteer.form.availability.longTermField")}</SelectItem>
+                        <SelectItem value="project-based">{t("volunteer.form.availability.projectBased")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div>
-                    <Label htmlFor="motivation">Why do you want to volunteer with us?</Label>
+                    <Label htmlFor="motivation">{t("volunteer.form.motivation")}</Label>
                     <Textarea 
                       id="motivation" 
-                      placeholder="Share your motivation and what you hope to contribute..."
+                      placeholder={t("volunteer.form.motivationPlaceholder")}
                       className="min-h-[120px]"
                     />
                   </div>
@@ -334,25 +326,25 @@ const Volunteer = () => {
                     <div className="flex items-center space-x-2">
                       <Checkbox id="agreement1" />
                       <Label htmlFor="agreement1" className="text-sm">
-                        I commit to the values and mission of Zolange Foundation
+                        {t("volunteer.form.agreement1")}
                       </Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Checkbox id="agreement2" />
                       <Label htmlFor="agreement2" className="text-sm">
-                        I agree to undergo background checks if selected for field positions
+                        {t("volunteer.form.agreement2")}
                       </Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Checkbox id="agreement3" />
                       <Label htmlFor="agreement3" className="text-sm">
-                        I understand this is an unpaid volunteer position
+                        {t("volunteer.form.agreement3")}
                       </Label>
                     </div>
                   </div>
 
                   <Button type="submit" className="w-full" size="lg">
-                    {content.application.submit[language as keyof typeof content.application.submit]}
+                    {t("volunteer.application.submit")}
                   </Button>
                 </form>
               </CardContent>
@@ -365,41 +357,22 @@ const Volunteer = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12 sm:mb-16">
               <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">
-                {content.stories.title[language as keyof typeof content.stories.title]}
+                {t("volunteer.stories.title")}
               </h2>
               <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-2 sm:px-0">
-                {content.stories.subtitle[language as keyof typeof content.stories.subtitle]}
+                {t("volunteer.stories.subtitle")}
               </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              {[
-                {
-                  name: "Emily Rodriguez",
-                  role: "Education Volunteer, Ghana",
-                  quote: "Working with the children in Ghana changed my life. Seeing their eagerness to learn despite challenges was incredibly inspiring.",
-                  duration: "6 months"
-                },
-                {
-                  name: "Daniel Osei",
-                  role: "Healthcare Volunteer, Nigeria",
-                  quote: "Being able to provide medical care to remote communities was both humbling and rewarding. The gratitude was overwhelming.",
-                  duration: "1 year"
-                },
-                {
-                  name: "Rachel Kim",
-                  role: "Remote Communications Volunteer",
-                  quote: "Even from thousands of miles away, I felt connected to the mission through storytelling and digital outreach.",
-                  duration: "2 years"
-                }
-              ].map((testimonial, index) => (
+              {testimonials.map((testimonial, index) => (
                 <Card key={index}>
                   <CardContent className="p-6">
                     <p className="text-muted-foreground italic mb-4">"{testimonial.quote}"</p>
                     <div>
                       <p className="font-semibold text-primary">{testimonial.name}</p>
                       <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                      <p className="text-xs text-muted-foreground mt-1">Volunteered for {testimonial.duration}</p>
+                      <p className="text-xs text-muted-foreground mt-1">{t("volunteer.stories.volunteeredFor")} {testimonial.duration}</p>
                     </div>
                   </CardContent>
                 </Card>
