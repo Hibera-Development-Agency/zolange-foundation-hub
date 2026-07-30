@@ -7,46 +7,68 @@ import {Textarea} from "@/components/ui/textarea";
 import {Label} from "@/components/ui/label";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {Clock, Mail, MapPin, Phone, Send} from "lucide-react";
+import {useLanguage} from "@/contexts/LanguageContext";
 
 const Contact = () => {
+    const {t} = useLanguage();
+
     const contactInfo = [
         {
             icon: MapPin,
-            title: "Head Office",
-            details: ["Almere, The Netherlands"]
+            title: t("contact.info.headOffice.title"),
+            details: [t("contact.info.headOffice.detail1")]
         },
         {
             icon: Phone,
-            title: "Phone",
-            details: ["+31 6 12345678"]
+            title: t("contact.info.phone.title"),
+            details: [t("contact.info.phone.detail1")]
         },
         {
             icon: Mail,
-            title: "Email",
-            details: ["zolangefoundation@gmail.com"]
+            title: t("contact.info.email.title"),
+            details: [t("contact.info.email.detail1")]
         },
         {
             icon: Clock,
-            title: "Office Hours",
-            details: ["Monday - Friday: 9:00 AM - 6:00 PM", "Saturday: 10:00 AM - 2:00 PM"]
+            title: t("contact.info.hours.title"),
+            details: [t("contact.info.hours.detail1"), t("contact.info.hours.detail2")]
         }
     ];
 
     const offices = [
         {
-            location: "NL Office",
-            address: "[PLACHOLDER ADDRESS]",
-            phone: "[PLACEHOLDER PHONENUMBER]",
-            email: "[PLACEHOLDER EMAIL]"
+            location: t("contact.offices.nl.location"),
+            address: t("contact.offices.nl.address"),
+            phone: t("contact.offices.nl.phone"),
+            email: t("contact.offices.nl.email")
         },
         {
-            location: "DRC Office",
-            address: "[PLACHOLDER ADDRESS]",
-            phone: "[PLACEHOLDER PHONENUMBER]",
-            email: "[PLACEHOLDER EMAIL]"
+            location: t("contact.offices.drc.location"),
+            address: t("contact.offices.drc.address"),
+            phone: t("contact.offices.drc.phone"),
+            email: t("contact.offices.drc.email")
         },
 
 
+    ];
+
+    const faqs = [
+        {
+            question: t("contact.faq.q1"),
+            answer: t("contact.faq.a1")
+        },
+        {
+            question: t("contact.faq.q2"),
+            answer: t("contact.faq.a2")
+        },
+        {
+            question: t("contact.faq.q3"),
+            answer: t("contact.faq.a3")
+        },
+        {
+            question: t("contact.faq.q4"),
+            answer: t("contact.faq.a4")
+        }
     ];
 
     return (
@@ -57,10 +79,9 @@ const Contact = () => {
                 {/* Hero Section */}
                 <section className="bg-hero-gradient text-white py-12 sm:py-20">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                        <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 px-2 sm:px-0">Contact Us</h1>
+                        <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 px-2 sm:px-0">{t("contact.hero.title")}</h1>
                         <p className="text-lg sm:text-xl max-w-3xl mx-auto px-2 sm:px-0">
-                            We'd love to hear from you. Get in touch with us for any questions, partnerships, or
-                            volunteer opportunities.
+                            {t("contact.hero.subtitle")}
                         </p>
                     </div>
                 </section>
@@ -93,51 +114,51 @@ const Contact = () => {
                             {/* Contact Form */}
                             <Card>
                                 <CardHeader>
-                                    <CardTitle className="text-2xl text-primary">Send us a Message</CardTitle>
+                                    <CardTitle className="text-2xl text-primary">{t("contact.form.title")}</CardTitle>
                                     <p className="text-muted-foreground">
-                                        Fill out the form below and we'll get back to you as soon as possible.
+                                        {t("contact.form.subtitle")}
                                     </p>
                                 </CardHeader>
                                 <CardContent>
                                     <form className="space-y-6">
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div>
-                                                <Label htmlFor="firstName">First Name *</Label>
+                                                <Label htmlFor="firstName">{t("contact.form.firstName")}</Label>
                                                 <Input id="firstName" required/>
                                             </div>
                                             <div>
-                                                <Label htmlFor="lastName">Last Name *</Label>
+                                                <Label htmlFor="lastName">{t("contact.form.lastName")}</Label>
                                                 <Input id="lastName" required/>
                                             </div>
                                         </div>
 
                                         <div>
-                                            <Label htmlFor="email">Email Address *</Label>
+                                            <Label htmlFor="email">{t("contact.form.email")}</Label>
                                             <Input id="email" type="email" required/>
                                         </div>
 
                                         <div>
-                                            <Label htmlFor="subject">Subject *</Label>
+                                            <Label htmlFor="subject">{t("contact.form.subject")}</Label>
                                             <Select>
                                                 <SelectTrigger>
-                                                    <SelectValue placeholder="Select a subject"/>
+                                                    <SelectValue placeholder={t("contact.form.subjectPlaceholder")}/>
                                                 </SelectTrigger>
                                                 <SelectContent>
-                                                    <SelectItem value="general">General Inquiry</SelectItem>
-                                                    <SelectItem value="volunteer">Volunteer Opportunities</SelectItem>
-                                                    <SelectItem value="donation">Donation Information</SelectItem>
-                                                    <SelectItem value="partnership">Partnership</SelectItem>
-                                                    <SelectItem value="media">Media & Press</SelectItem>
-                                                    <SelectItem value="other">Other</SelectItem>
+                                                    <SelectItem value="general">{t("contact.form.subject.general")}</SelectItem>
+                                                    <SelectItem value="volunteer">{t("contact.form.subject.volunteer")}</SelectItem>
+                                                    <SelectItem value="donation">{t("contact.form.subject.donation")}</SelectItem>
+                                                    <SelectItem value="partnership">{t("contact.form.subject.partnership")}</SelectItem>
+                                                    <SelectItem value="media">{t("contact.form.subject.media")}</SelectItem>
+                                                    <SelectItem value="other">{t("contact.form.subject.other")}</SelectItem>
                                                 </SelectContent>
                                             </Select>
                                         </div>
 
                                         <div>
-                                            <Label htmlFor="message">Message *</Label>
+                                            <Label htmlFor="message">{t("contact.form.message")}</Label>
                                             <Textarea
                                                 id="message"
-                                                placeholder="Tell us how we can help you..."
+                                                placeholder={t("contact.form.messagePlaceholder")}
                                                 className="min-h-[120px]"
                                                 required
                                             />
@@ -145,7 +166,7 @@ const Contact = () => {
 
                                         <Button type="submit" className="w-full" size="lg">
                                             <Send className="w-4 h-4 mr-2"/>
-                                            Send Message
+                                            {t("contact.form.submit")}
                                         </Button>
                                     </form>
                                 </CardContent>
@@ -158,9 +179,8 @@ const Contact = () => {
                                         <div className="bg-muted h-64 rounded-lg flex items-center justify-center">
                                             <div className="text-center">
                                                 <MapPin className="w-12 h-12 text-muted-foreground mx-auto mb-2"/>
-                                                <p className="text-muted-foreground">Interactive Map Coming Soon</p>
-                                                <p className="text-sm text-muted-foreground">Find our offices
-                                                    worldwide</p>
+                                                <p className="text-muted-foreground">{t("contact.map.comingSoon")}</p>
+                                                <p className="text-sm text-muted-foreground">{t("contact.map.findOffices")}</p>
                                             </div>
                                         </div>
                                     </CardContent>
@@ -169,27 +189,27 @@ const Contact = () => {
                                 {/* Quick Contact */}
                                 <Card>
                                     <CardHeader>
-                                        <CardTitle className="text-xl text-primary">Quick Contact</CardTitle>
+                                        <CardTitle className="text-xl text-primary">{t("contact.quick.title")}</CardTitle>
                                     </CardHeader>
                                     <CardContent className="space-y-4">
                                         <div className="flex items-center space-x-3">
                                             <Phone className="w-5 h-5 text-secondary"/>
                                             <div>
-                                                <p className="font-medium">Emergency Line</p>
+                                                <p className="font-medium">{t("contact.quick.emergency")}</p>
                                                 <p className="text-sm text-muted-foreground">+31 6 12345678</p>
                                             </div>
                                         </div>
                                         <div className="flex items-center space-x-3">
                                             <Mail className="w-5 h-5 text-secondary"/>
                                             <div>
-                                                <p className="font-medium">Partnerships</p>
+                                                <p className="font-medium">{t("contact.quick.partnerships")}</p>
                                                 <p className="text-sm text-muted-foreground">[PLACEHOLDER EMAIL]</p>
                                             </div>
                                         </div>
                                         <div className="flex items-center space-x-3">
                                             <Mail className="w-5 h-5 text-secondary"/>
                                             <div>
-                                                <p className="font-medium">Media Inquiries</p>
+                                                <p className="font-medium">{t("contact.quick.media")}</p>
                                                 <p className="text-sm text-muted-foreground">[PLACEHOLDER EMAIL]</p>
                                             </div>
                                         </div>
@@ -204,10 +224,9 @@ const Contact = () => {
                 <section className="py-20">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-16">
-                            <h2 className="text-4xl font-bold text-foreground mb-6">Our Global Offices</h2>
+                            <h2 className="text-4xl font-bold text-foreground mb-6">{t("contact.offices.title")}</h2>
                             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                                We have offices around the world to better serve our communities and coordinate our
-                                projects.
+                                {t("contact.offices.subtitle")}
                             </p>
                         </div>
 
@@ -241,31 +260,14 @@ const Contact = () => {
                 <section className="py-20 bg-muted">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-16">
-                            <h2 className="text-4xl font-bold text-foreground mb-6">Frequently Asked Questions</h2>
+                            <h2 className="text-4xl font-bold text-foreground mb-6">{t("contact.faq.title")}</h2>
                             <p className="text-xl text-muted-foreground">
-                                Find quick answers to common questions about our work and how to get involved.
+                                {t("contact.faq.subtitle")}
                             </p>
                         </div>
 
                         <div className="space-y-6">
-                            {[
-                                {
-                                    question: "How can I volunteer with Zolange Foundation?",
-                                    answer: "Visit our Volunteer page to learn about opportunities and submit an application. We have both field and remote positions available."
-                                },
-                                {
-                                    question: "Where do my donations go?",
-                                    answer: "Your donations directly support our projects in education, healthcare, and community development. We maintain full transparency in our financial reporting."
-                                },
-                                {
-                                    question: "Can I visit your project sites?",
-                                    answer: "Yes! We welcome visitors to our project sites. Please contact us in advance to arrange visits and ensure safety protocols are followed."
-                                },
-                                {
-                                    question: "How can my organization partner with you?",
-                                    answer: "We're always open to partnerships. Contact us at partners@zolangefoundation.org to discuss collaboration opportunities."
-                                }
-                            ].map((faq, index) => (
+                            {faqs.map((faq, index) => (
                                 <Card key={index}>
                                     <CardContent className="p-6">
                                         <h3 className="text-lg font-semibold text-primary mb-3">{faq.question}</h3>

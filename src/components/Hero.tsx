@@ -1,15 +1,18 @@
 import {Button} from "@/components/ui/button";
 import {Link} from "react-router-dom";
 import heroImage from "@/assets/hero-image.jpg";
+import {useLanguage} from "@/contexts/LanguageContext";
 
 const Hero = () => {
+    const {t} = useLanguage();
+
     return (
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
             {/* Background Image */}
             <div className="absolute inset-0">
                 <img
                     src={heroImage}
-                    alt="Zolange Foundation Community"
+                    alt={t("hero.imageAlt")}
                     className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30"/>
@@ -19,9 +22,9 @@ const Hero = () => {
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <div className="max-w-4xl mx-auto">
                     <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight px-2 sm:px-0">
-                        Empowering the people by addressing their{" "}
+                        {t("hero.title.part1")}{" "}
                         <span className="text-secondary">
-                        humanitarian and educational needs</span>
+                        {t("hero.title.highlight")}</span>
                     </h1>
 
                     <div className="mt-12">
@@ -31,7 +34,7 @@ const Hero = () => {
                             asChild
                             className="text-lg px-8 py-4 shadow-secondary"
                         >
-                            <Link to="/donate">Donate Now</Link>
+                            <Link to="/donate">{t("common.donateNow")}</Link>
                         </Button>
                     </div>
                 </div>

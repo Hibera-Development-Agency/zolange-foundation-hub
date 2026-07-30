@@ -1,8 +1,11 @@
 import {Link} from "react-router-dom";
 import {Facebook, Instagram, Linkedin, Mail, MapPin, Phone} from "lucide-react";
 import {Button} from "@/components/ui/button";
+import {useLanguage} from "@/contexts/LanguageContext";
 
 const Footer = () => {
+    const {t} = useLanguage();
+
     const socialLinks = [
         {icon: Facebook, href: "https://www.facebook.com/profile.php?id=100064883794680", label: "Facebook"},
         {icon: Instagram, href: "https://www.instagram.com/zolangefoundation", label: "Instagram"},
@@ -10,11 +13,11 @@ const Footer = () => {
     ];
 
     const quickLinks = [
-        {href: "/about", label: "About Us"},
-        {href: "/projects", label: "Projects"},
-        {href: "/team", label: "Team"},
-        {href: "/volunteer", label: "Volunteer"},
-        {href: "/contact", label: "Contact"},
+        {href: "/about", labelKey: "footer.aboutUs"},
+        {href: "/projects", labelKey: "nav.projects"},
+        {href: "/team", labelKey: "nav.team"},
+        {href: "/volunteer", labelKey: "nav.volunteer"},
+        {href: "/contact", labelKey: "nav.contact"},
     ];
 
     return (
@@ -25,14 +28,12 @@ const Footer = () => {
                     <div className="lg:col-span-2">
                         <div className="flex items-center space-x-2 mb-4">
                             <div className="w-20 h-20 bg-secondary rounded-lg flex items-center justify-center">
-                                <img src="/logo.jpeg" alt="Zolange Foundation Logo"/>
+                                <img src="/logo.jpeg" alt={t("common.logoAlt")}/>
                             </div>
                             <span className="text-xl font-bold">Zolange Foundation</span>
                         </div>
                         <p className="text-primary-foreground/80 mb-6 max-w-md">
-                            The Zolange Foundation is empowering lives worldwide through hope and the love of
-                            Jesus Christ, creating profound differences in communities regardless of backgrounds or
-                            ages.
+                            {t("footer.mission")}
                         </p>
                         <div className="flex space-x-4">
                             {socialLinks.map(({icon: Icon, href, label}) => (
@@ -53,7 +54,7 @@ const Footer = () => {
 
                     {/* Quick Links */}
                     <div>
-                        <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+                        <h3 className="text-lg font-semibold mb-4">{t("footer.quickLinks")}</h3>
                         <ul className="space-y-2">
                             {quickLinks.map((link) => (
                                 <li key={link.href}>
@@ -61,7 +62,7 @@ const Footer = () => {
                                         to={link.href}
                                         className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
                                     >
-                                        {link.label}
+                                        {t(link.labelKey)}
                                     </Link>
                                 </li>
                             ))}
@@ -70,7 +71,7 @@ const Footer = () => {
 
                     {/* Contact Info */}
                     <div>
-                        <h3 className="text-lg font-semibold mb-4">Contact</h3>
+                        <h3 className="text-lg font-semibold mb-4">{t("footer.contact")}</h3>
                         <div className="space-y-3">
                             <div className="flex items-center space-x-3">
                                 <MapPin className="w-5 h-5 text-secondary"/>
@@ -96,10 +97,10 @@ const Footer = () => {
                 <div
                     className="border-t border-primary-foreground/20 mt-6 sm:mt-8 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
                     <p className="text-primary-foreground/60 text-sm">
-                        © 2025 Zolange Foundation. All rights reserved.
+                        {t("footer.rights")}
                     </p>
                     <p className="text-primary-foreground/60 text-sm mt-2 sm:mt-0">
-                        Built with love for the community by <a href="https://hibera-agency.com">Hibera Agency</a> 💙
+                        {t("footer.builtWith")} <a href="https://hibera-agency.com">Hibera Agency</a> 💙
                     </p>
                 </div>
             </div>

@@ -10,35 +10,37 @@ import {Badge} from "@/components/ui/badge";
 import {Book, CreditCard, Gift, Heart, Monitor, Shirt} from "lucide-react";
 import {Link} from "react-router-dom";
 import {useState} from "react";
+import {useLanguage} from "@/contexts/LanguageContext";
 
 const Donate = () => {
+    const {t} = useLanguage();
     const donationAmounts = [25, 50, 100, 200, 500, 1000];
     const [selectedAmount, setSelectedAmount] = useState(null);
 
     const inKindItems = [
         {
             icon: Book,
-            category: "School Supplies",
-            items: ["Textbooks", "Notebooks", "Pencils & Pens", "Calculators", "Backpacks"],
-            description: "Support education with learning materials"
+            category: t("donate.inkind.category.schoolSupplies.title"),
+            items: [t("donate.inkind.category.schoolSupplies.item.textbooks"), t("donate.inkind.category.schoolSupplies.item.notebooks"), t("donate.inkind.category.schoolSupplies.item.pens"), t("donate.inkind.category.schoolSupplies.item.calculators"), t("donate.inkind.category.schoolSupplies.item.backpacks")],
+            description: t("donate.inkind.category.schoolSupplies.description")
         },
         {
             icon: Shirt,
-            category: "Clothing",
-            items: ["Children's Clothing", "School Uniforms", "Warm Jackets", "Shoes", "Blankets"],
-            description: "Provide clothing and comfort items"
+            category: t("donate.inkind.category.clothing.title"),
+            items: [t("donate.inkind.category.clothing.item.childrens"), t("donate.inkind.category.clothing.item.uniforms"), t("donate.inkind.category.clothing.item.jackets"), t("donate.inkind.category.clothing.item.shoes"), t("donate.inkind.category.clothing.item.blankets")],
+            description: t("donate.inkind.category.clothing.description")
         },
         {
             icon: Monitor,
-            category: "Electronics",
-            items: ["Laptops", "Tablets", "Smartphones", "Solar Panels", "Medical Equipment"],
-            description: "Technology for education and healthcare"
+            category: t("donate.inkind.category.electronics.title"),
+            items: [t("donate.inkind.category.electronics.item.laptops"), t("donate.inkind.category.electronics.item.tablets"), t("donate.inkind.category.electronics.item.smartphones"), t("donate.inkind.category.electronics.item.solarPanels"), t("donate.inkind.category.electronics.item.medicalEquipment")],
+            description: t("donate.inkind.category.electronics.description")
         },
         {
             icon: Gift,
-            category: "Hygiene & Health",
-            items: ["Soap & Sanitizers", "Toothbrushes", "First Aid Kits", "Vitamins", "Water Filters"],
-            description: "Essential health and hygiene products"
+            category: t("donate.inkind.category.hygiene.title"),
+            items: [t("donate.inkind.category.hygiene.item.soap"), t("donate.inkind.category.hygiene.item.toothbrushes"), t("donate.inkind.category.hygiene.item.firstAid"), t("donate.inkind.category.hygiene.item.vitamins"), t("donate.inkind.category.hygiene.item.waterFilters")],
+            description: t("donate.inkind.category.hygiene.description")
         }
     ];
 
@@ -50,10 +52,9 @@ const Donate = () => {
                 {/* Hero Section */}
                 <section className="bg-donation-gradient text-white py-20">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                        <h1 className="text-4xl md:text-6xl font-bold mb-6">Support Our Mission</h1>
+                        <h1 className="text-4xl md:text-6xl font-bold mb-6">{t("donate.hero.title")}</h1>
                         <p className="text-xl max-w-3xl mx-auto mb-8">
-                            Your generosity helps us spread love, hope, and transformation to communities around the
-                            world.
+                            {t("donate.hero.subtitle")}
                         </p>
                     </div>
                 </section>
@@ -65,11 +66,11 @@ const Donate = () => {
                             <TabsList className="grid w-full grid-cols-2 mb-12">
                                 <TabsTrigger value="money" className="text-lg py-3">
                                     <CreditCard className="w-5 h-5 mr-2"/>
-                                    Monetary Donation
+                                    {t("donate.tabs.money")}
                                 </TabsTrigger>
                                 <TabsTrigger value="inkind" className="text-lg py-3">
                                     <Gift className="w-5 h-5 mr-2"/>
-                                    In-Kind Donation
+                                    {t("donate.tabs.inkind")}
                                 </TabsTrigger>
                             </TabsList>
 
@@ -79,25 +80,25 @@ const Donate = () => {
                                     {/* Donation Form */}
                                     <Card>
                                         <CardHeader>
-                                            <CardTitle className="text-2xl text-primary">Make a Donation</CardTitle>
+                                            <CardTitle className="text-2xl text-primary">{t("donate.money.form.title")}</CardTitle>
                                             <p className="text-muted-foreground">
-                                                Choose your donation amount to support our ongoing work.
+                                                {t("donate.money.form.subtitle")}
                                             </p>
                                         </CardHeader>
                                         <CardContent className="space-y-6">
                                             {/* Donation Type */}
                                             <div>
-                                                <Label className="text-base mb-4 block">Donation Type</Label>
+                                                <Label className="text-base mb-4 block">{t("donate.money.form.type")}</Label>
                                                 <div className="grid grid-cols-1 gap-4">
                                                     <Button variant="default" className="py-6">
-                                                        One Time
+                                                        {t("donate.money.form.oneTime")}
                                                     </Button>
                                                 </div>
                                             </div>
 
                                             {/* Amount Selection */}
                                             <div>
-                                                <Label className="text-base mb-4 block">Select Amount (EUR)</Label>
+                                                <Label className="text-base mb-4 block">{t("donate.money.form.selectAmount")}</Label>
                                                 <div className="grid grid-cols-3 gap-3 mb-4">
                                                     {donationAmounts.map((amount) => (
                                                         <Button
@@ -116,36 +117,35 @@ const Donate = () => {
                                             <div className="space-y-4">
                                                 <div className="grid grid-cols-2 gap-4">
                                                     <div>
-                                                        <Label htmlFor="donorFirst">First Name *</Label>
+                                                        <Label htmlFor="donorFirst">{t("donate.money.form.firstName")}</Label>
                                                         <Input id="donorFirst" required/>
                                                     </div>
                                                     <div>
-                                                        <Label htmlFor="donorLast">Last Name *</Label>
+                                                        <Label htmlFor="donorLast">{t("donate.money.form.lastName")}</Label>
                                                         <Input id="donorLast" required/>
                                                     </div>
                                                 </div>
 
                                                 <div>
-                                                    <Label htmlFor="donorEmail">Email Address *</Label>
+                                                    <Label htmlFor="donorEmail">{t("donate.money.form.email")}</Label>
                                                     <Input id="donorEmail" type="email" required/>
                                                 </div>
 
                                                 <div>
-                                                    <Label htmlFor="donorCountry">Country</Label>
+                                                    <Label htmlFor="donorCountry">{t("donate.money.form.country")}</Label>
                                                     <Select>
                                                         <SelectTrigger>
-                                                            <SelectValue placeholder="Select your country"/>
+                                                            <SelectValue placeholder={t("donate.money.form.countryPlaceholder")}/>
                                                         </SelectTrigger>
                                                         <SelectContent>
-                                                            <SelectItem value="nl">The Netherlands</SelectItem>
-                                                            <SelectItem value="drc">The Democratic Republic of
-                                                                Congo</SelectItem>
-                                                            <SelectItem value="us">United States</SelectItem>
-                                                            <SelectItem value="uk">United Kingdom</SelectItem>
-                                                            <SelectItem value="de">Germany</SelectItem>
-                                                            <SelectItem value="fr">France</SelectItem>
-                                                            <SelectItem value="ca">Canada</SelectItem>
-                                                            <SelectItem value="au">Australia</SelectItem>
+                                                            <SelectItem value="nl">{t("donate.money.form.country.nl")}</SelectItem>
+                                                            <SelectItem value="drc">{t("donate.money.form.country.drc")}</SelectItem>
+                                                            <SelectItem value="us">{t("donate.money.form.country.us")}</SelectItem>
+                                                            <SelectItem value="uk">{t("donate.money.form.country.uk")}</SelectItem>
+                                                            <SelectItem value="de">{t("donate.money.form.country.de")}</SelectItem>
+                                                            <SelectItem value="fr">{t("donate.money.form.country.fr")}</SelectItem>
+                                                            <SelectItem value="ca">{t("donate.money.form.country.ca")}</SelectItem>
+                                                            <SelectItem value="au">{t("donate.money.form.country.au")}</SelectItem>
                                                         </SelectContent>
                                                     </Select>
                                                 </div>
@@ -157,19 +157,18 @@ const Donate = () => {
                                                         to={`https://bunq.me/StichtingZolangeFoundation/${selectedAmount}`}>
                                                         <Button className="w-full bg-secondary hover:bg-secondary-dark"
                                                                 size="lg">
-                                                            Proceed to Payment (€{selectedAmount})
+                                                            {t("donate.money.form.proceedToPayment").replace("{amount}", String(selectedAmount))}
                                                         </Button>
                                                     </Link>
                                                 ) : (
                                                     <Button disabled className="w-full" size="lg">
-                                                        Select an Amount
+                                                        {t("donate.money.form.selectAnAmount")}
                                                     </Button>
                                                 )}
                                             </div>
 
                                             <p className="text-xs text-muted-foreground text-center">
-                                                Your donation is secure and encrypted. You will receive a receipt via
-                                                email.
+                                                {t("donate.money.form.secureNote")}
                                             </p>
                                         </CardContent>
                                     </Card>
@@ -178,31 +177,31 @@ const Donate = () => {
                                     <div className="space-y-6">
                                         <Card>
                                             <CardHeader>
-                                                <CardTitle className="text-xl text-primary">Your Impact</CardTitle>
+                                                <CardTitle className="text-xl text-primary">{t("donate.impact.title")}</CardTitle>
                                             </CardHeader>
                                             <CardContent className="space-y-4">
                                                 <div className="space-y-3">
                                                     <div
                                                         className="flex justify-between items-center p-3 bg-muted rounded-lg">
-                                                        <span>€25 provides</span>
+                                                        <span>{t("donate.impact.25.label")}</span>
                                                         <span
-                                                            className="font-medium">School supplies for 5 children</span>
+                                                            className="font-medium">{t("donate.impact.25.value")}</span>
                                                     </div>
                                                     <div
                                                         className="flex justify-between items-center p-3 bg-muted rounded-lg">
-                                                        <span>€50 provides</span>
+                                                        <span>{t("donate.impact.50.label")}</span>
                                                         <span
-                                                            className="font-medium">Medical care for 10 families</span>
+                                                            className="font-medium">{t("donate.impact.50.value")}</span>
                                                     </div>
                                                     <div
                                                         className="flex justify-between items-center p-3 bg-muted rounded-lg">
-                                                        <span>€100 provides</span>
-                                                        <span className="font-medium">Clean water for 1 month</span>
+                                                        <span>{t("donate.impact.100.label")}</span>
+                                                        <span className="font-medium">{t("donate.impact.100.value")}</span>
                                                     </div>
                                                     <div
                                                         className="flex justify-between items-center p-3 bg-muted rounded-lg">
-                                                        <span>€200 provides</span>
-                                                        <span className="font-medium">Teacher training workshop</span>
+                                                        <span>{t("donate.impact.200.label")}</span>
+                                                        <span className="font-medium">{t("donate.impact.200.value")}</span>
                                                     </div>
                                                 </div>
                                             </CardContent>
@@ -210,21 +209,20 @@ const Donate = () => {
 
                                         <Card>
                                             <CardHeader>
-                                                <CardTitle className="text-xl text-primary">Other Ways to
-                                                    Give</CardTitle>
+                                                <CardTitle className="text-xl text-primary">{t("donate.otherWays.title")}</CardTitle>
                                             </CardHeader>
                                             <CardContent className="space-y-4">
                                                 <Button variant="outline" className="w-full justify-start">
                                                     <Gift className="w-4 h-4 mr-2"/>
-                                                    Bank Transfer
+                                                    {t("donate.otherWays.bankTransfer")}
                                                 </Button>
                                                 <Button variant="outline" className="w-full justify-start">
                                                     <Heart className="w-4 h-4 mr-2"/>
-                                                    Cryptocurrency
+                                                    {t("donate.otherWays.crypto")}
                                                 </Button>
                                                 <Button variant="outline" className="w-full justify-start">
                                                     <CreditCard className="w-4 h-4 mr-2"/>
-                                                    Corporate Sponsorship
+                                                    {t("donate.otherWays.corporate")}
                                                 </Button>
                                             </CardContent>
                                         </Card>
@@ -235,10 +233,9 @@ const Donate = () => {
                             {/* In-Kind Donation */}
                             <TabsContent value="inkind" className="space-y-8">
                                 <div className="text-center mb-12">
-                                    <h2 className="text-3xl font-bold text-foreground mb-4">Donate Items & Supplies</h2>
+                                    <h2 className="text-3xl font-bold text-foreground mb-4">{t("donate.inkind.title")}</h2>
                                     <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                                        Support our mission by donating essential items that directly benefit our
-                                        communities.
+                                        {t("donate.inkind.subtitle")}
                                     </p>
                                 </div>
 
@@ -266,10 +263,9 @@ const Donate = () => {
                                 <div className="max-w-4xl mx-auto">
                                     <Card>
                                         <CardHeader>
-                                            <CardTitle className="text-2xl text-primary">Item Donation Form</CardTitle>
+                                            <CardTitle className="text-2xl text-primary">{t("donate.inkind.form.title")}</CardTitle>
                                             <p className="text-muted-foreground">
-                                                Tell us about the items you'd like to donate and we'll coordinate pickup
-                                                or delivery.
+                                                {t("donate.inkind.form.subtitle")}
                                             </p>
                                         </CardHeader>
                                         <CardContent>
@@ -277,94 +273,92 @@ const Donate = () => {
                                                 {/* Donor Information */}
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                     <div>
-                                                        <Label htmlFor="itemDonorFirst">First Name *</Label>
+                                                        <Label htmlFor="itemDonorFirst">{t("donate.inkind.form.firstName")}</Label>
                                                         <Input id="itemDonorFirst" required/>
                                                     </div>
                                                     <div>
-                                                        <Label htmlFor="itemDonorLast">Last Name *</Label>
+                                                        <Label htmlFor="itemDonorLast">{t("donate.inkind.form.lastName")}</Label>
                                                         <Input id="itemDonorLast" required/>
                                                     </div>
                                                 </div>
 
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                     <div>
-                                                        <Label htmlFor="itemDonorEmail">Email Address *</Label>
+                                                        <Label htmlFor="itemDonorEmail">{t("donate.inkind.form.email")}</Label>
                                                         <Input id="itemDonorEmail" type="email" required/>
                                                     </div>
                                                     <div>
-                                                        <Label htmlFor="itemDonorPhone">Phone Number *</Label>
+                                                        <Label htmlFor="itemDonorPhone">{t("donate.inkind.form.phone")}</Label>
                                                         <Input id="itemDonorPhone" type="tel" required/>
                                                     </div>
                                                 </div>
 
                                                 <div>
-                                                    <Label htmlFor="itemDonorAddress">Address *</Label>
+                                                    <Label htmlFor="itemDonorAddress">{t("donate.inkind.form.address")}</Label>
                                                     <Input id="itemDonorAddress"
-                                                           placeholder="Street address for pickup/delivery coordination"
+                                                           placeholder={t("donate.inkind.form.addressPlaceholder")}
                                                            required/>
                                                 </div>
 
                                                 {/* Item Details */}
                                                 <div>
-                                                    <Label htmlFor="itemCategory">Item Category *</Label>
+                                                    <Label htmlFor="itemCategory">{t("donate.inkind.form.category")}</Label>
                                                     <Select>
                                                         <SelectTrigger>
-                                                            <SelectValue placeholder="Select category"/>
+                                                            <SelectValue placeholder={t("donate.inkind.form.categoryPlaceholder")}/>
                                                         </SelectTrigger>
                                                         <SelectContent>
-                                                            <SelectItem value="school-supplies">School
-                                                                Supplies</SelectItem>
-                                                            <SelectItem value="clothing">Clothing</SelectItem>
-                                                            <SelectItem value="electronics">Electronics</SelectItem>
-                                                            <SelectItem value="hygiene-health">Hygiene &
-                                                                Health</SelectItem>
-                                                            <SelectItem value="other">Other</SelectItem>
+                                                            <SelectItem value="school-supplies">{t("donate.inkind.form.category.schoolSupplies")}</SelectItem>
+                                                            <SelectItem value="clothing">{t("donate.inkind.form.category.clothing")}</SelectItem>
+                                                            <SelectItem value="electronics">{t("donate.inkind.form.category.electronics")}</SelectItem>
+                                                            <SelectItem value="hygiene-health">{t("donate.inkind.form.category.hygieneHealth")}</SelectItem>
+                                                            <SelectItem value="other">{t("donate.inkind.form.category.other")}</SelectItem>
                                                         </SelectContent>
                                                     </Select>
                                                 </div>
 
                                                 <div>
-                                                    <Label htmlFor="itemDescription">Item Description *</Label>
+                                                    <Label htmlFor="itemDescription">{t("donate.inkind.form.description")}</Label>
                                                     <textarea
                                                         id="itemDescription"
                                                         className="w-full min-h-[120px] p-3 border border-input rounded-md resize-none"
-                                                        placeholder="Please provide detailed information about the items you're donating (quantity, condition, brand, etc.)"
+                                                        placeholder={t("donate.inkind.form.descriptionPlaceholder")}
                                                         required
                                                     />
                                                 </div>
 
                                                 <div>
-                                                    <Label htmlFor="itemCondition">Condition</Label>
+                                                    <Label htmlFor="itemCondition">{t("donate.inkind.form.condition")}</Label>
                                                     <Select>
                                                         <SelectTrigger>
-                                                            <SelectValue placeholder="Select condition"/>
+                                                            <SelectValue placeholder={t("donate.inkind.form.conditionPlaceholder")}/>
                                                         </SelectTrigger>
                                                         <SelectContent>
-                                                            <SelectItem value="new">New</SelectItem>
-                                                            <SelectItem value="like-new">Like New</SelectItem>
-                                                            <SelectItem value="good">Good</SelectItem>
-                                                            <SelectItem value="fair">Fair</SelectItem>
+                                                            <SelectItem value="new">{t("donate.inkind.form.condition.new")}</SelectItem>
+                                                            <SelectItem value="like-new">{t("donate.inkind.form.condition.likeNew")}</SelectItem>
+                                                            <SelectItem value="good">{t("donate.inkind.form.condition.good")}</SelectItem>
+                                                            <SelectItem value="fair">{t("donate.inkind.form.condition.fair")}</SelectItem>
                                                         </SelectContent>
                                                     </Select>
                                                 </div>
 
                                                 <div>
-                                                    <Label htmlFor="deliveryPreference">Delivery Preference</Label>
+                                                    <Label htmlFor="deliveryPreference">{t("donate.inkind.form.deliveryPreference")}</Label>
                                                     <Select>
                                                         <SelectTrigger>
                                                             <SelectValue
-                                                                placeholder="How would you like to deliver the items?"/>
+                                                                placeholder={t("donate.inkind.form.deliveryPreferencePlaceholder")}/>
                                                         </SelectTrigger>
                                                         <SelectContent>
-                                                            <SelectItem value="pickup">Schedule Pickup</SelectItem>
-                                                            <SelectItem value="dropoff">Drop Off at Office</SelectItem>
-                                                            <SelectItem value="shipping">Ship Items</SelectItem>
+                                                            <SelectItem value="pickup">{t("donate.inkind.form.delivery.pickup")}</SelectItem>
+                                                            <SelectItem value="dropoff">{t("donate.inkind.form.delivery.dropoff")}</SelectItem>
+                                                            <SelectItem value="shipping">{t("donate.inkind.form.delivery.shipping")}</SelectItem>
                                                         </SelectContent>
                                                     </Select>
                                                 </div>
 
                                                 <Button type="submit" className="w-full" size="lg">
-                                                    Submit Donation Request
+                                                    {t("donate.inkind.form.submit")}
                                                 </Button>
                                             </form>
                                         </CardContent>
@@ -374,20 +368,16 @@ const Donate = () => {
                                 {/* Guidelines */}
                                 <Card className="max-w-4xl mx-auto">
                                     <CardHeader>
-                                        <CardTitle className="text-xl text-primary">Donation Guidelines</CardTitle>
+                                        <CardTitle className="text-xl text-primary">{t("donate.guidelines.title")}</CardTitle>
                                     </CardHeader>
                                     <CardContent>
                                         <ul className="space-y-2 text-muted-foreground">
-                                            <li>• All items should be in good or better condition</li>
-                                            <li>• Electronics should be functional and include necessary
-                                                cables/chargers
-                                            </li>
-                                            <li>• Clothing should be clean and appropriate for all ages</li>
-                                            <li>• We cannot accept expired medications or perishable items</li>
-                                            <li>• Large donations may require special coordination - please contact us
-                                                first
-                                            </li>
-                                            <li>• Tax-deductible receipts will be provided for eligible donations</li>
+                                            <li>• {t("donate.guidelines.item1")}</li>
+                                            <li>• {t("donate.guidelines.item2")}</li>
+                                            <li>• {t("donate.guidelines.item3")}</li>
+                                            <li>• {t("donate.guidelines.item4")}</li>
+                                            <li>• {t("donate.guidelines.item5")}</li>
+                                            <li>• {t("donate.guidelines.item6")}</li>
                                         </ul>
                                     </CardContent>
                                 </Card>
@@ -400,10 +390,9 @@ const Donate = () => {
                 <section className="py-20 bg-muted">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-16">
-                            <h2 className="text-4xl font-bold text-foreground mb-6">Financial Transparency</h2>
+                            <h2 className="text-4xl font-bold text-foreground mb-6">{t("donate.transparency.title")}</h2>
                             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                                We believe in complete transparency about how your donations are used to create maximum
-                                impact.
+                                {t("donate.transparency.subtitle")}
                             </p>
                         </div>
 
@@ -411,12 +400,12 @@ const Donate = () => {
                             {[
                                 {
                                     percentage: "85%",
-                                    label: "Program Services",
-                                    description: "Direct impact on communities"
+                                    label: t("donate.transparency.program.label"),
+                                    description: t("donate.transparency.program.description")
                                 },
-                                {percentage: "10%", label: "Administration", description: "Operational efficiency"},
-                                {percentage: "5%", label: "Fundraising", description: "Sustainable growth"},
-                                {percentage: "100%", label: "Transparency", description: "Full accountability"}
+                                {percentage: "10%", label: t("donate.transparency.admin.label"), description: t("donate.transparency.admin.description")},
+                                {percentage: "5%", label: t("donate.transparency.fundraising.label"), description: t("donate.transparency.fundraising.description")},
+                                {percentage: "100%", label: t("donate.transparency.transparency.label"), description: t("donate.transparency.transparency.description")}
                             ].map((item, index) => (
                                 <Card key={index} className="text-center">
                                     <CardContent className="p-6">

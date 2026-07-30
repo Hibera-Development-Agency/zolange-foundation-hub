@@ -7,11 +7,13 @@ import {Button} from "@/components/ui/button";
 import {Link} from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Team = () => {
     const [teamMembers, setTeamMembers] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const { toast } = useToast();
+    const { t } = useLanguage();
 
     useEffect(() => {
         const fetchTeamMembers = async () => {
@@ -26,7 +28,7 @@ const Team = () => {
                 setTeamMembers(data || []);
             } catch (error: any) {
                 toast({
-                    title: "Error loading team members",
+                    title: t("team.toast.errorTitle"),
                     description: error.message,
                     variant: "destructive",
                 });
@@ -46,10 +48,9 @@ const Team = () => {
                 {/* Hero Section */}
                 <section className="bg-hero-gradient text-white py-12 sm:py-20">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                        <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 px-2 sm:px-0">Our Team</h1>
+                        <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 px-2 sm:px-0">{t("team.hero.title")}</h1>
                         <p className="text-lg sm:text-xl max-w-3xl mx-auto px-2 sm:px-0">
-                            Meet the dedicated individuals who make our mission possible through their expertise,
-                            passion, and commitment.
+                            {t("team.hero.subtitle")}
                         </p>
                     </div>
                 </section>
@@ -59,11 +60,11 @@ const Team = () => {
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         {loading ? (
                             <div className="text-center py-12">
-                                <p className="text-muted-foreground">Loading team members...</p>
+                                <p className="text-muted-foreground">{t("team.loading")}</p>
                             </div>
                         ) : teamMembers.length === 0 ? (
                             <div className="text-center py-12">
-                                <p className="text-muted-foreground">No team members available yet.</p>
+                                <p className="text-muted-foreground">{t("team.empty")}</p>
                             </div>
                         ) : (
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -90,14 +91,14 @@ const Team = () => {
                                             <div className="flex space-x-2">
                                                 {member.email && (
                                                     <Button variant="ghost" size="sm" asChild>
-                                                        <a href={`mailto:${member.email}`} aria-label="Email">
+                                                        <a href={`mailto:${member.email}`} aria-label={t("team.member.email")}>
                                                             <Mail className="w-4 h-4"/>
                                                         </a>
                                                     </Button>
                                                 )}
                                                 {member.linkedin_url && (
                                                     <Button variant="ghost" size="sm" asChild>
-                                                        <a href={member.linkedin_url} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                                                        <a href={member.linkedin_url} target="_blank" rel="noopener noreferrer" aria-label={t("team.member.linkedin")}>
                                                             <Linkedin className="w-4 h-4"/>
                                                         </a>
                                                     </Button>
@@ -115,15 +116,14 @@ const Team = () => {
                 <section className="py-12 sm:py-20 bg-muted">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                         <div className="max-w-4xl mx-auto">
-                            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">Join Our Team</h2>
+                            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">{t("team.join.title")}</h2>
                             <p className="text-lg sm:text-xl text-muted-foreground mb-6 sm:mb-8 px-2 sm:px-0">
-                                We're always looking for passionate individuals who share our mission and want to make a
-                                difference in the world.
+                                {t("team.join.subtitle")}
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center px-4 sm:px-0">
                                 <Link to={'/volunteer'}>
                                     <Button variant="default" size="lg">
-                                        Volunteer With Us
+                                        {t("team.join.volunteerButton")}
                                     </Button>
                                 </Link>
                             </div>
@@ -135,26 +135,25 @@ const Team = () => {
                 <section className="py-12 sm:py-20">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-12 sm:mb-16">
-                            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">Why Work With Us</h2>
+                            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6 px-2 sm:px-0">{t("team.why.title")}</h2>
                             <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-2 sm:px-0">
-                                Join a team that's committed to making a lasting impact while fostering personal and
-                                professional growth.
+                                {t("team.why.subtitle")}
                             </p>
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
                             {[
                                 {
-                                    title: "Meaningful Work",
-                                    description: "Every day, you'll know that your work is directly improving lives and communities."
+                                    title: t("team.why.meaningful.title"),
+                                    description: t("team.why.meaningful.description")
                                 },
                                 {
-                                    title: "Global Impact",
-                                    description: "Be part of projects that span continents and create lasting change."
+                                    title: t("team.why.global.title"),
+                                    description: t("team.why.global.description")
                                 },
                                 {
-                                    title: "Growth & Development",
-                                    description: "Continuous learning opportunities and career advancement in a supportive environment."
+                                    title: t("team.why.growth.title"),
+                                    description: t("team.why.growth.description")
                                 }
                             ].map((benefit, index) => (
                                 <Card key={index} className="text-center p-6">
