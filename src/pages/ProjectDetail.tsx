@@ -8,12 +8,14 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, MapPin, Users, Calendar, Target } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const ProjectDetail = () => {
   const { slug } = useParams();
   const [project, setProject] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+  const { t } = useLanguage();
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -28,7 +30,7 @@ const ProjectDetail = () => {
         setProject(data);
       } catch (error: any) {
         toast({
-          title: "Error loading project",
+          title: t("projectDetail.toast.errorTitle"),
           description: error.message,
           variant: "destructive",
         });
@@ -47,7 +49,7 @@ const ProjectDetail = () => {
       <div className="min-h-screen bg-background">
         <Navigation />
         <main className="pt-16 min-h-screen flex items-center justify-center">
-          <p className="text-muted-foreground">Loading project...</p>
+          <p className="text-muted-foreground">{t("projectDetail.loading")}</p>
         </main>
         <Footer />
       </div>
@@ -60,11 +62,11 @@ const ProjectDetail = () => {
         <Navigation />
         <main className="pt-16 min-h-screen flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-4xl font-bold mb-4">Project Not Found</h1>
+            <h1 className="text-4xl font-bold mb-4">{t("projectDetail.notFound.title")}</h1>
             <Link to="/projects">
               <Button variant="outline">
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Projects
+                {t("projectDetail.notFound.backBtn")}
               </Button>
             </Link>
           </div>
@@ -84,7 +86,7 @@ const ProjectDetail = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <Link to="/projects" className="inline-flex items-center text-white/80 hover:text-white mb-8 transition-colors">
               <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Projects
+              {t("projectDetail.backToProjects")}
             </Link>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
@@ -142,7 +144,7 @@ const ProjectDetail = () => {
                   <CardHeader>
                     <CardTitle className="flex items-center">
                       <Target className="w-5 h-5 mr-2 text-primary" />
-                      Project Overview
+                      {t("projectDetail.overview.title")}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -155,7 +157,7 @@ const ProjectDetail = () => {
                 {project.image_urls && project.image_urls.length > 1 && (
                   <Card className="mb-8">
                     <CardHeader>
-                      <CardTitle>Project Gallery</CardTitle>
+                      <CardTitle>{t("projectDetail.gallery.title")}</CardTitle>
                     </CardHeader>
                     <CardContent>
                       <div className="grid grid-cols-2 gap-4">
@@ -177,12 +179,12 @@ const ProjectDetail = () => {
               <div className="space-y-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Project Info</CardTitle>
+                    <CardTitle>{t("projectDetail.info.title")}</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     {project.category && (
                       <div>
-                        <span className="text-sm text-muted-foreground">Category</span>
+                        <span className="text-sm text-muted-foreground">{t("projectDetail.info.category")}</span>
                         <Badge variant="outline" className="ml-2">
                           {project.category}
                         </Badge>
@@ -190,17 +192,17 @@ const ProjectDetail = () => {
                     )}
                     {project.budget && (
                       <div>
-                        <span className="text-sm text-muted-foreground">Budget</span>
+                        <span className="text-sm text-muted-foreground">{t("projectDetail.info.budget")}</span>
                         <p className="font-semibold">${project.budget.toLocaleString()}</p>
                       </div>
                     )}
                     <div>
-                      <span className="text-sm text-muted-foreground">Status</span>
+                      <span className="text-sm text-muted-foreground">{t("projectDetail.info.status")}</span>
                       <p className="font-semibold capitalize">{project.status}</p>
                     </div>
                     {project.start_date && (
                       <div>
-                        <span className="text-sm text-muted-foreground">Start Date</span>
+                        <span className="text-sm text-muted-foreground">{t("projectDetail.info.startDate")}</span>
                         <p className="font-semibold">
                           {new Date(project.start_date).toLocaleDateString()}
                         </p>
@@ -208,13 +210,13 @@ const ProjectDetail = () => {
                     )}
                     {project.duration_months && (
                       <div>
-                        <span className="text-sm text-muted-foreground">Duration</span>
-                        <p className="font-semibold">{project.duration_months} months</p>
+                        <span className="text-sm text-muted-foreground">{t("projectDetail.info.duration")}</span>
+                        <p className="font-semibold">{project.duration_months} {t("projectDetail.info.months")}</p>
                       </div>
                     )}
                     {project.completion_percentage !== null && (
                       <div>
-                        <span className="text-sm text-muted-foreground">Progress</span>
+                        <span className="text-sm text-muted-foreground">{t("projectDetail.info.progress")}</span>
                         <p className="font-semibold">{project.completion_percentage}%</p>
                       </div>
                     )}
@@ -223,17 +225,17 @@ const ProjectDetail = () => {
 
                 <Card>
                   <CardHeader>
-                    <CardTitle>Support This Project</CardTitle>
+                    <CardTitle>{t("projectDetail.support.title")}</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <p className="text-sm text-muted-foreground">
-                      Help us continue making a difference in this community.
+                      {t("projectDetail.support.description")}
                     </p>
                     <Button className="w-full" asChild>
-                      <Link to="/donate">Donate Now</Link>
+                      <Link to="/donate">{t("projectDetail.support.donateBtn")}</Link>
                     </Button>
                     <Button variant="outline" className="w-full" asChild>
-                      <Link to="/volunteer">Become a Volunteer</Link>
+                      <Link to="/volunteer">{t("projectDetail.support.volunteerBtn")}</Link>
                     </Button>
                   </CardContent>
                 </Card>

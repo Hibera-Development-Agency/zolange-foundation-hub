@@ -1,3 +1,82 @@
 import type { Dict } from "./types";
 
-export const volunteer: Dict = {};
+export const volunteer: Dict = {
+  "volunteer.hero.title": { en: "Volunteer With Us", fr: "Devenez Bénévole" },
+  "volunteer.hero.subtitle": { en: "Join our global community of volunteers and help us spread love, hope, and transformation around the world.", fr: "Rejoignez notre communauté mondiale de bénévoles et aidez-nous à répandre l'amour, l'espoir et la transformation dans le monde entier." },
+
+  "volunteer.meaning.title": { en: "What Volunteering Means at Zolange Foundation", fr: "Ce Que Signifie le Bénévolat à la Fondation Zolange" },
+  "volunteer.meaning.subtitle": { en: "At Zolange Foundation, volunteering is more than giving your time – it's about becoming part of a family united in purpose, sharing Christ's love through action, and witnessing transformation in both the communities we serve and within ourselves.", fr: "À la Fondation Zolange, le bénévolat est plus que donner de votre temps – il s'agit de devenir membre d'une famille unie dans un but commun, de partager l'amour du Christ par l'action et d'être témoin de la transformation dans les communautés que nous servons et en nous-mêmes." },
+
+  "volunteer.benefit.love.title": { en: "Love in Action", fr: "L'Amour en Action" },
+  "volunteer.benefit.love.description": { en: "Show Christ's love through practical service and genuine care for those in need.", fr: "Montrez l'amour du Christ par un service pratique et un soin authentique pour ceux dans le besoin." },
+  "volunteer.benefit.impact.title": { en: "Global Impact", fr: "Impact Mondial" },
+  "volunteer.benefit.impact.description": { en: "Be part of projects spanning multiple countries and touching thousands of lives.", fr: "Faites partie de projets couvrant plusieurs pays et touchant des milliers de vies." },
+  "volunteer.benefit.community.title": { en: "Community", fr: "Communauté" },
+  "volunteer.benefit.community.description": { en: "Join a supportive community of like-minded individuals committed to service.", fr: "Rejoignez une communauté solidaire de personnes partageant les mêmes idées et engagées dans le service." },
+  "volunteer.benefit.flexible.title": { en: "Flexible Commitment", fr: "Engagement Flexible" },
+  "volunteer.benefit.flexible.description": { en: "Choose from various time commitments that fit your schedule and availability.", fr: "Choisissez parmi divers engagements de temps qui correspondent à votre emploi du temps et à votre disponibilité." },
+
+  "volunteer.opportunities.title": { en: "Volunteer Opportunities", fr: "Opportunités de Bénévolat" },
+  "volunteer.opportunities.subtitle": { en: "Find the perfect way to contribute your skills and passion to our mission.", fr: "Trouvez le moyen idéal de contribuer vos compétences et votre passion à notre mission." },
+  "volunteer.opportunities.loading": { en: "Loading volunteer positions...", fr: "Chargement des postes de bénévoles..." },
+  "volunteer.opportunities.noPositions": { en: "No volunteer positions available at the moment.", fr: "Aucun poste de bénévole disponible pour le moment." },
+  "volunteer.opportunities.requirements": { en: "Requirements:", fr: "Exigences :" },
+  "volunteer.opportunities.category": { en: "Category:", fr: "Catégorie :" },
+  "volunteer.opportunities.commitment": { en: "Commitment:", fr: "Engagement :" },
+  "volunteer.opportunities.location": { en: "Location:", fr: "Lieu :" },
+
+  "volunteer.application.title": { en: "Apply to Volunteer", fr: "Postuler comme Bénévole" },
+  "volunteer.application.subtitle": { en: "Ready to join our mission? Fill out the application form below and we'll be in touch.", fr: "Prêt à rejoindre notre mission ? Remplissez le formulaire de candidature ci-dessous et nous vous contacterons." },
+  "volunteer.application.submit": { en: "Submit Application", fr: "Soumettre la Candidature" },
+
+  "volunteer.form.firstName": { en: "First Name *", fr: "Prénom *" },
+  "volunteer.form.lastName": { en: "Last Name *", fr: "Nom *" },
+  "volunteer.form.email": { en: "Email Address *", fr: "Adresse E-mail *" },
+  "volunteer.form.phone": { en: "Phone Number", fr: "Numéro de Téléphone" },
+  "volunteer.form.country": { en: "Country *", fr: "Pays *" },
+  "volunteer.form.age": { en: "Age", fr: "Âge" },
+  "volunteer.form.agePlaceholder": { en: "Select age range", fr: "Sélectionnez une tranche d'âge" },
+  "volunteer.form.interests": { en: "Areas of Interest *", fr: "Domaines d'Intérêt *" },
+  "volunteer.form.interestsPlaceholder": { en: "Select your primary interest", fr: "Sélectionnez votre intérêt principal" },
+  "volunteer.form.interest.education": { en: "Education", fr: "Éducation" },
+  "volunteer.form.interest.healthcare": { en: "Healthcare", fr: "Santé" },
+  "volunteer.form.interest.communityDevelopment": { en: "Community Development", fr: "Développement Communautaire" },
+  "volunteer.form.interest.administration": { en: "Administration", fr: "Administration" },
+  "volunteer.form.interest.communications": { en: "Communications", fr: "Communications" },
+  "volunteer.form.interest.technology": { en: "Technology", fr: "Technologie" },
+  "volunteer.form.skills": { en: "Skills & Experience", fr: "Compétences & Expérience" },
+  "volunteer.form.skillsPlaceholder": { en: "Tell us about your relevant skills, experience, and qualifications...", fr: "Parlez-nous de vos compétences, expériences et qualifications pertinentes..." },
+  "volunteer.form.availability": { en: "Availability", fr: "Disponibilité" },
+  "volunteer.form.availabilityPlaceholder": { en: "Select your availability", fr: "Sélectionnez votre disponibilité" },
+  "volunteer.form.availability.partTime": { en: "Part-time (5-15 hours/week)", fr: "Temps partiel (5-15 heures/semaine)" },
+  "volunteer.form.availability.fullTimeRemote": { en: "Full-time Remote", fr: "Temps plein à distance" },
+  "volunteer.form.availability.shortTermField": { en: "Short-term Field (1-3 months)", fr: "Terrain court terme (1-3 mois)" },
+  "volunteer.form.availability.longTermField": { en: "Long-term Field (6+ months)", fr: "Terrain long terme (6+ mois)" },
+  "volunteer.form.availability.projectBased": { en: "Project-based", fr: "Par projet" },
+  "volunteer.form.motivation": { en: "Why do you want to volunteer with us?", fr: "Pourquoi souhaitez-vous devenir bénévole chez nous ?" },
+  "volunteer.form.motivationPlaceholder": { en: "Share your motivation and what you hope to contribute...", fr: "Partagez votre motivation et ce que vous espérez apporter..." },
+  "volunteer.form.agreement1": { en: "I commit to the values and mission of Zolange Foundation", fr: "Je m'engage à respecter les valeurs et la mission de la Fondation Zolange" },
+  "volunteer.form.agreement2": { en: "I agree to undergo background checks if selected for field positions", fr: "J'accepte de me soumettre à des vérifications d'antécédents si je suis sélectionné(e) pour des postes sur le terrain" },
+  "volunteer.form.agreement3": { en: "I understand this is an unpaid volunteer position", fr: "Je comprends qu'il s'agit d'un poste de bénévole non rémunéré" },
+
+  "volunteer.stories.title": { en: "Volunteer Stories", fr: "Témoignages de Bénévoles" },
+  "volunteer.stories.subtitle": { en: "Hear from some of our amazing volunteers about their experiences with Zolange Foundation.", fr: "Écoutez certains de nos merveilleux bénévoles parler de leurs expériences avec la Fondation Zolange." },
+  "volunteer.stories.volunteeredFor": { en: "Volunteered for", fr: "A été bénévole pendant" },
+
+  "volunteer.testimonial1.name": { en: "Emily Rodriguez", fr: "Emily Rodriguez" },
+  "volunteer.testimonial1.role": { en: "Education Volunteer, Ghana", fr: "Bénévole en Éducation, Ghana" },
+  "volunteer.testimonial1.quote": { en: "Working with the children in Ghana changed my life. Seeing their eagerness to learn despite challenges was incredibly inspiring.", fr: "Travailler avec les enfants au Ghana a changé ma vie. Voir leur envie d'apprendre malgré les difficultés était incroyablement inspirant." },
+  "volunteer.testimonial1.duration": { en: "6 months", fr: "6 mois" },
+
+  "volunteer.testimonial2.name": { en: "Daniel Osei", fr: "Daniel Osei" },
+  "volunteer.testimonial2.role": { en: "Healthcare Volunteer, Nigeria", fr: "Bénévole en Santé, Nigeria" },
+  "volunteer.testimonial2.quote": { en: "Being able to provide medical care to remote communities was both humbling and rewarding. The gratitude was overwhelming.", fr: "Pouvoir fournir des soins médicaux à des communautés isolées était à la fois humiliant et gratifiant. La gratitude était immense." },
+  "volunteer.testimonial2.duration": { en: "1 year", fr: "1 an" },
+
+  "volunteer.testimonial3.name": { en: "Rachel Kim", fr: "Rachel Kim" },
+  "volunteer.testimonial3.role": { en: "Remote Communications Volunteer", fr: "Bénévole en Communication à Distance" },
+  "volunteer.testimonial3.quote": { en: "Even from thousands of miles away, I felt connected to the mission through storytelling and digital outreach.", fr: "Même à des milliers de kilomètres, je me suis sentie connectée à la mission grâce à la narration et à la sensibilisation numérique." },
+  "volunteer.testimonial3.duration": { en: "2 years", fr: "2 ans" },
+
+  "volunteer.toast.errorTitle": { en: "Error loading volunteer positions", fr: "Erreur lors du chargement des postes de bénévoles" }
+};
