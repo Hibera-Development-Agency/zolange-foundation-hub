@@ -6,16 +6,16 @@ import {useLanguage} from "@/contexts/LanguageContext";
 
 const Navigation = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const {language, toggleLanguage} = useLanguage();
+    const {language, toggleLanguage, t} = useLanguage();
     const location = useLocation();
 
     const navItems = [
-        {href: "/", label: {en: "Home", fr: "Accueil"}},
-        {href: "/about", label: {en: "About", fr: "À Propos"}},
-        {href: "/projects", label: {en: "Projects", fr: "Projets"}},
-        {href: "/team", label: {en: "Team", fr: "Équipe"}},
-        {href: "/volunteer", label: {en: "Volunteer", fr: "Bénévole"}},
-        {href: "/contact", label: {en: "Contact", fr: "Contact"}},
+        {href: "/", labelKey: "nav.home"},
+        {href: "/about", labelKey: "nav.about"},
+        {href: "/projects", labelKey: "nav.projects"},
+        {href: "/team", labelKey: "nav.team"},
+        {href: "/volunteer", labelKey: "nav.volunteer"},
+        {href: "/contact", labelKey: "nav.contact"},
     ];
 
     return (
@@ -42,7 +42,7 @@ const Navigation = () => {
                                         : "text-foreground hover:text-primary"
                                 }`}
                             >
-                                {item.label[language as keyof typeof item.label]}
+                                {t(item.labelKey)}
                             </Link>
                         ))}
                     </div>
@@ -60,12 +60,12 @@ const Navigation = () => {
                         </Button>
                         <Button variant="secondary" asChild>
                             <Link to="/donate">
-                                {language === "en" ? "Donate" : "Faire un Don"}
+                                {t("nav.donate")}
                             </Link>
                         </Button>
                         <Button variant="outline" asChild>
                             <Link to="/auth">
-                                {language === "en" ? "Dashboard" : "Tableau de Bord"}
+                                {t("nav.dashboard")}
                             </Link>
                         </Button>
                     </div>
@@ -95,7 +95,7 @@ const Navigation = () => {
                                 }`}
                                 onClick={() => setIsOpen(false)}
                             >
-                                {item.label[language as keyof typeof item.label]}
+                                {t(item.labelKey)}
                             </Link>
                         ))}
                         <div className="flex flex-col space-y-3 pt-4 border-t border-border">
@@ -110,12 +110,12 @@ const Navigation = () => {
                             </Button>
                             <Button variant="secondary" asChild className="w-full">
                                 <Link to="/donate" onClick={() => setIsOpen(false)}>
-                                    {language === "en" ? "Donate" : "Faire un Don"}
+                                    {t("nav.donate")}
                                 </Link>
                             </Button>
                             <Button variant="outline" asChild className="w-full">
                                 <Link to="/auth" onClick={() => setIsOpen(false)}>
-                                    {language === "en" ? "Dashboard" : "Tableau de Bord"}
+                                    {t("nav.dashboard")}
                                 </Link>
                             </Button>
                         </div>
