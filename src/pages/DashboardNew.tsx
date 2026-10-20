@@ -206,14 +206,18 @@ const Dashboard = () => {
     try {
       const projectData: any = {
         title: formData.get('title') as string,
+        title_fr: (formData.get('title_fr') as string) || null,
         description: formData.get('description') as string,
+        description_fr: (formData.get('description_fr') as string) || null,
         slug: createSlug(formData.get('title') as string || ''),
         location: formData.get('location') as string,
+        location_fr: (formData.get('location_fr') as string) || null,
         status: formData.get('status') as string,
         budget: parseFloat(formData.get('budget') as string) || null,
         beneficiaries: parseInt(formData.get('beneficiaries') as string) || null,
         duration_months: parseInt(formData.get('duration_months') as string) || null,
         category: formData.get('category') as string,
+        category_fr: (formData.get('category_fr') as string) || null,
         completion_percentage: parseInt(formData.get('completion_percentage') as string) || 0,
       };
 
@@ -261,7 +265,9 @@ const Dashboard = () => {
       const memberData: any = {
         name: formData.get('name') as string,
         position: formData.get('position') as string,
+        position_fr: (formData.get('position_fr') as string) || null,
         description: formData.get('description') as string,
+        description_fr: (formData.get('description_fr') as string) || null,
         email: formData.get('email') as string,
         linkedin_url: formData.get('linkedin_url') as string,
         display_order: parseInt(formData.get('display_order') as string) || 0,
@@ -309,11 +315,17 @@ const Dashboard = () => {
     try {
       const positionData = {
         title: formData.get('title') as string,
+        title_fr: (formData.get('title_fr') as string) || null,
         description: formData.get('description') as string,
+        description_fr: (formData.get('description_fr') as string) || null,
         requirements: formData.get('requirements') as string,
+        requirements_fr: (formData.get('requirements_fr') as string) || null,
         location: formData.get('location') as string,
+        location_fr: (formData.get('location_fr') as string) || null,
         time_commitment: formData.get('time_commitment') as string,
+        time_commitment_fr: (formData.get('time_commitment_fr') as string) || null,
         category: formData.get('category') as string,
+        category_fr: (formData.get('category_fr') as string) || null,
         is_active: formData.get('is_active') === 'true',
       };
 
@@ -868,7 +880,7 @@ const Dashboard = () => {
           {editingType === 'project' && (
             <form onSubmit={handleSaveProject} className="space-y-4">
               <div>
-                <Label htmlFor="title">Title *</Label>
+                <Label htmlFor="title">Title (English) *</Label>
                 <Input 
                   id="title" 
                   name="title" 
@@ -877,11 +889,29 @@ const Dashboard = () => {
                 />
               </div>
               <div>
-                <Label htmlFor="description">Description</Label>
+                <Label htmlFor="title_fr">Title (French)</Label>
+                <Input 
+                  id="title_fr" 
+                  name="title_fr" 
+                  defaultValue={editingItem?.title_fr || ''} 
+                  placeholder="Leave empty to use the English title"
+                />
+              </div>
+              <div>
+                <Label htmlFor="description">Description (English)</Label>
                 <Textarea 
                   id="description" 
                   name="description" 
                   defaultValue={editingItem?.description || ''} 
+                />
+              </div>
+              <div>
+                <Label htmlFor="description_fr">Description (French)</Label>
+                <Textarea 
+                  id="description_fr" 
+                  name="description_fr" 
+                  defaultValue={editingItem?.description_fr || ''} 
+                  placeholder="Leave empty to use the English description"
                 />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -907,6 +937,15 @@ const Dashboard = () => {
                     </SelectContent>
                   </Select>
                 </div>
+              </div>
+              <div>
+                <Label htmlFor="location_fr">Location (French)</Label>
+                <Input 
+                  id="location_fr" 
+                  name="location_fr" 
+                  defaultValue={editingItem?.location_fr || ''} 
+                  placeholder="Leave empty to use the English location"
+                />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
@@ -953,6 +992,15 @@ const Dashboard = () => {
                     <SelectItem value="emergency-relief">Emergency Relief</SelectItem>
                   </SelectContent>
                 </Select>
+              </div>
+              <div>
+                <Label htmlFor="category_fr">Category (French)</Label>
+                <Input 
+                  id="category_fr" 
+                  name="category_fr" 
+                  defaultValue={editingItem?.category_fr || ''} 
+                  placeholder="e.g. Éducation — leave empty to use the English category"
+                />
               </div>
 
               {/* Image Upload Section */}
@@ -1028,7 +1076,7 @@ const Dashboard = () => {
                 />
               </div>
               <div>
-                <Label htmlFor="position">Position *</Label>
+                <Label htmlFor="position">Position (English) *</Label>
                 <Input 
                   id="position" 
                   name="position" 
@@ -1037,11 +1085,29 @@ const Dashboard = () => {
                 />
               </div>
               <div>
-                <Label htmlFor="description">Description</Label>
+                <Label htmlFor="position_fr">Position (French)</Label>
+                <Input 
+                  id="position_fr" 
+                  name="position_fr" 
+                  defaultValue={editingItem?.position_fr || ''} 
+                  placeholder="Leave empty to use the English position"
+                />
+              </div>
+              <div>
+                <Label htmlFor="description">Description (English)</Label>
                 <Textarea 
                   id="description" 
                   name="description" 
                   defaultValue={editingItem?.description || ''} 
+                />
+              </div>
+              <div>
+                <Label htmlFor="description_fr">Description (French)</Label>
+                <Textarea 
+                  id="description_fr" 
+                  name="description_fr" 
+                  defaultValue={editingItem?.description_fr || ''} 
+                  placeholder="Leave empty to use the English description"
                 />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1132,7 +1198,7 @@ const Dashboard = () => {
           {editingType === 'volunteer' && (
             <form onSubmit={handleSaveVolunteerPosition} className="space-y-4">
               <div>
-                <Label htmlFor="title">Title *</Label>
+                <Label htmlFor="title">Title (English) *</Label>
                 <Input 
                   id="title" 
                   name="title" 
@@ -1141,7 +1207,16 @@ const Dashboard = () => {
                 />
               </div>
               <div>
-                <Label htmlFor="description">Description *</Label>
+                <Label htmlFor="title_fr">Title (French)</Label>
+                <Input 
+                  id="title_fr" 
+                  name="title_fr" 
+                  defaultValue={editingItem?.title_fr || ''} 
+                  placeholder="Leave empty to use the English title"
+                />
+              </div>
+              <div>
+                <Label htmlFor="description">Description (English) *</Label>
                 <Textarea 
                   id="description" 
                   name="description" 
@@ -1150,11 +1225,29 @@ const Dashboard = () => {
                 />
               </div>
               <div>
-                <Label htmlFor="requirements">Requirements</Label>
+                <Label htmlFor="description_fr">Description (French)</Label>
+                <Textarea 
+                  id="description_fr" 
+                  name="description_fr" 
+                  defaultValue={editingItem?.description_fr || ''} 
+                  placeholder="Leave empty to use the English description"
+                />
+              </div>
+              <div>
+                <Label htmlFor="requirements">Requirements (English)</Label>
                 <Textarea 
                   id="requirements" 
                   name="requirements" 
                   defaultValue={editingItem?.requirements || ''} 
+                />
+              </div>
+              <div>
+                <Label htmlFor="requirements_fr">Requirements (French)</Label>
+                <Textarea 
+                  id="requirements_fr" 
+                  name="requirements_fr" 
+                  defaultValue={editingItem?.requirements_fr || ''} 
+                  placeholder="Leave empty to use the English requirements"
                 />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1195,6 +1288,32 @@ const Dashboard = () => {
                       <SelectItem value="false">Inactive</SelectItem>
                     </SelectContent>
                   </Select>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <Label htmlFor="location_fr">Location (French)</Label>
+                  <Input 
+                    id="location_fr" 
+                    name="location_fr" 
+                    defaultValue={editingItem?.location_fr || ''} 
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="time_commitment_fr">Time Commitment (French)</Label>
+                  <Input 
+                    id="time_commitment_fr" 
+                    name="time_commitment_fr" 
+                    defaultValue={editingItem?.time_commitment_fr || ''} 
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="category_fr">Category (French)</Label>
+                  <Input 
+                    id="category_fr" 
+                    name="category_fr" 
+                    defaultValue={editingItem?.category_fr || ''} 
+                  />
                 </div>
               </div>
               <Button type="submit" className="w-full">
