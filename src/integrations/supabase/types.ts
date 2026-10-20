@@ -49,57 +49,69 @@ export type Database = {
           beneficiaries: number | null
           budget: number | null
           category: string | null
+          category_fr: string | null
           completion_percentage: number | null
           created_at: string
           created_by: string | null
           description: string | null
+          description_fr: string | null
           duration_months: number | null
           end_date: string | null
           id: string
           image_urls: string[] | null
           location: string | null
+          location_fr: string | null
           slug: string
           start_date: string | null
           status: string | null
           title: string
+          title_fr: string | null
           updated_at: string
         }
         Insert: {
           beneficiaries?: number | null
           budget?: number | null
           category?: string | null
+          category_fr?: string | null
           completion_percentage?: number | null
           created_at?: string
           created_by?: string | null
           description?: string | null
+          description_fr?: string | null
           duration_months?: number | null
           end_date?: string | null
           id?: string
           image_urls?: string[] | null
           location?: string | null
+          location_fr?: string | null
           slug: string
           start_date?: string | null
           status?: string | null
           title: string
+          title_fr?: string | null
           updated_at?: string
         }
         Update: {
           beneficiaries?: number | null
           budget?: number | null
           category?: string | null
+          category_fr?: string | null
           completion_percentage?: number | null
           created_at?: string
           created_by?: string | null
           description?: string | null
+          description_fr?: string | null
           duration_months?: number | null
           end_date?: string | null
           id?: string
           image_urls?: string[] | null
           location?: string | null
+          location_fr?: string | null
           slug?: string
           start_date?: string | null
           status?: string | null
           title?: string
+          title_fr?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -108,6 +120,7 @@ export type Database = {
         Row: {
           created_at: string
           description: string | null
+          description_fr: string | null
           display_order: number | null
           email: string | null
           id: string
@@ -116,11 +129,13 @@ export type Database = {
           linkedin_url: string | null
           name: string
           position: string
+          position_fr: string | null
           updated_at: string
         }
         Insert: {
           created_at?: string
           description?: string | null
+          description_fr?: string | null
           display_order?: number | null
           email?: string | null
           id?: string
@@ -129,11 +144,13 @@ export type Database = {
           linkedin_url?: string | null
           name: string
           position: string
+          position_fr?: string | null
           updated_at?: string
         }
         Update: {
           created_at?: string
           description?: string | null
+          description_fr?: string | null
           display_order?: number | null
           email?: string | null
           id?: string
@@ -142,6 +159,7 @@ export type Database = {
           linkedin_url?: string | null
           name?: string
           position?: string
+          position_fr?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -149,38 +167,56 @@ export type Database = {
       volunteer_positions: {
         Row: {
           category: string | null
+          category_fr: string | null
           created_at: string
           description: string
+          description_fr: string | null
           id: string
           is_active: boolean | null
           location: string | null
+          location_fr: string | null
           requirements: string | null
+          requirements_fr: string | null
           time_commitment: string | null
+          time_commitment_fr: string | null
           title: string
+          title_fr: string | null
           updated_at: string
         }
         Insert: {
           category?: string | null
+          category_fr?: string | null
           created_at?: string
           description: string
+          description_fr?: string | null
           id?: string
           is_active?: boolean | null
           location?: string | null
+          location_fr?: string | null
           requirements?: string | null
+          requirements_fr?: string | null
           time_commitment?: string | null
+          time_commitment_fr?: string | null
           title: string
+          title_fr?: string | null
           updated_at?: string
         }
         Update: {
           category?: string | null
+          category_fr?: string | null
           created_at?: string
           description?: string
+          description_fr?: string | null
           id?: string
           is_active?: boolean | null
           location?: string | null
+          location_fr?: string | null
           requirements?: string | null
+          requirements_fr?: string | null
           time_commitment?: string | null
+          time_commitment_fr?: string | null
           title?: string
+          title_fr?: string | null
           updated_at?: string
         }
         Relationships: []

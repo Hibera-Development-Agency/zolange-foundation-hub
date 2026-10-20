@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1792491019186,
+      "tag": "0000_add_french_content_columns",
+      "breakpoints": true
+    }
+  ]
+}
