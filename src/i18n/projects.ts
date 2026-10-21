@@ -3,8 +3,8 @@ import type { Dict } from "./types";
 export const projects: Dict = {
   "projects.status.active": { en: "Active", fr: "Actif" },
   "projects.status.completed": { en: "Completed", fr: "Terminé" },
-  "projects.status.planned": { en: "Planned", fr: "Prévu" },
-  "projects.status.on_hold": { en: "On hold", fr: "En pause" },
+  "projects.status.planning": { en: "Planning", fr: "En préparation" },
+  "projects.status.paused": { en: "Paused", fr: "En pause" },
   "projects.hero.title": { en: "Our Projects", fr: "Nos Projets" },
   "projects.hero.subtitle": { en: "Discover the impactful work we're doing in communities around the world.", fr: "Découvrez le travail d'impact que nous faisons dans les communautés du monde entier." },
   "projects.impact.title": { en: "Our Impact", fr: "Notre Impact" },
