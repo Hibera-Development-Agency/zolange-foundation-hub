@@ -8,12 +8,13 @@ import {Link} from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { getLocalized } from "@/lib/localized";
 
 const Team = () => {
     const [teamMembers, setTeamMembers] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const { toast } = useToast();
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
 
     useEffect(() => {
         const fetchTeamMembers = async () => {
@@ -81,11 +82,11 @@ const Team = () => {
                                         <CardContent className="p-6">
                                             <div className="mb-3">
                                                 <h3 className="text-xl font-semibold text-primary mb-1">{member.name}</h3>
-                                                <p className="text-secondary font-medium">{member.position}</p>
+                                                <p className="text-secondary font-medium">{getLocalized(member, "position", language)}</p>
                                             </div>
 
                                             <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
-                                                {member.description}
+                                                {getLocalized(member, "description", language)}
                                             </p>
 
                                             <div className="flex space-x-2">

@@ -9,13 +9,14 @@ import { ArrowLeft, MapPin, Users, Calendar, Target } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { getLocalized } from "@/lib/localized";
 
 const ProjectDetail = () => {
   const { slug } = useParams();
   const [project, setProject] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -94,19 +95,19 @@ const ProjectDetail = () => {
                   variant={project.status === "active" ? "default" : "secondary"}
                   className="mb-4"
                 >
-                  {project.status}
+                  {t(`projects.status.${project.status}`)}
                 </Badge>
                 <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                  {project.title}
+                  {getLocalized(project, "title", language)}
                 </h1>
                 <p className="text-xl mb-6">
-                  {project.description}
+                  {getLocalized(project, "description", language)}
                 </p>
                 <div className="flex flex-wrap gap-4 text-sm">
-                  {project.location && (
+                  {getLocalized(project, "location", language) && (
                     <div className="flex items-center">
                       <MapPin className="w-4 h-4 mr-2" />
-                      {project.location}
+                      {getLocalized(project, "location", language)}
                     </div>
                   )}
                   {project.beneficiaries && (
@@ -118,7 +119,7 @@ const ProjectDetail = () => {
                   {project.start_date && (
                     <div className="flex items-center">
                       <Calendar className="w-4 h-4 mr-2" />
-                      {new Date(project.start_date).toLocaleDateString()}
+                      {new Date(project.start_date).toLocaleDateString(language === "fr" ? "fr-FR" : "en-US")}
                     </div>
                   )}
                 </div>
@@ -126,7 +127,7 @@ const ProjectDetail = () => {
               <div className="relative">
                 <img
                   src={project.image_urls?.[0] || '/placeholder.svg'}
-                  alt={project.title}
+                  alt={getLocalized(project, "title", language)}
                   className="w-full h-80 object-cover rounded-lg shadow-primary"
                 />
               </div>
@@ -149,7 +150,7 @@ const ProjectDetail = () => {
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground leading-relaxed">
-                      {project.description}
+                      {getLocalized(project, "description", language)}
                     </p>
                   </CardContent>
                 </Card>
@@ -165,7 +166,7 @@ const ProjectDetail = () => {
                           <img
                             key={index}
                             src={url}
-                            alt={`${project.title} - Image ${index + 2}`}
+                            alt={`${getLocalized(project, "title", language)} - Image ${index + 2}`}
                             className="w-full h-48 object-cover rounded-lg"
                           />
                         ))}
@@ -182,11 +183,11 @@ const ProjectDetail = () => {
                     <CardTitle>{t("projectDetail.info.title")}</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    {project.category && (
+                    {getLocalized(project, "category", language) && (
                       <div>
                         <span className="text-sm text-muted-foreground">{t("projectDetail.info.category")}</span>
                         <Badge variant="outline" className="ml-2">
-                          {project.category}
+                          {getLocalized(project, "category", language)}
                         </Badge>
                       </div>
                     )}
@@ -198,13 +199,13 @@ const ProjectDetail = () => {
                     )}
                     <div>
                       <span className="text-sm text-muted-foreground">{t("projectDetail.info.status")}</span>
-                      <p className="font-semibold capitalize">{project.status}</p>
+                      <p className="font-semibold capitalize">{t(`projects.status.${project.status}`)}</p>
                     </div>
                     {project.start_date && (
                       <div>
                         <span className="text-sm text-muted-foreground">{t("projectDetail.info.startDate")}</span>
                         <p className="font-semibold">
-                          {new Date(project.start_date).toLocaleDateString()}
+                          {new Date(project.start_date).toLocaleDateString(language === "fr" ? "fr-FR" : "en-US")}
                         </p>
                       </div>
                     )}

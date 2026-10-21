@@ -8,9 +8,10 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { getLocalized } from "@/lib/localized";
 
 const Projects = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [projects, setProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
@@ -81,31 +82,31 @@ const Projects = () => {
                                 <div className="aspect-video overflow-hidden">
                                   <img
                                     src={project.image_urls?.[0] || '/placeholder.svg'}
-                                    alt={project.title}
+                                    alt={getLocalized(project, "title", language)}
                                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                                   />
                                 </div>
                                 <CardHeader>
                                   <div className="flex items-start justify-between">
                                     <CardTitle className="text-xl text-primary">
-                                      {project.title}
+                                      {getLocalized(project, "title", language)}
                                     </CardTitle>
                                     <Badge variant={project.status === "active" ? "default" : "secondary"}>
-                                      {project.status}
+                                      {t(`projects.status.${project.status}`)}
                                     </Badge>
                                   </div>
                                   <p className="text-muted-foreground text-sm">
-                                    {project.location}
+                                    {getLocalized(project, "location", language)}
                                   </p>
                                 </CardHeader>
                                 <CardContent>
                                   <p className="text-muted-foreground mb-4">
-                                    {project.description}
+                                    {getLocalized(project, "description", language)}
                                   </p>
                                   <div className="space-y-2 mb-4">
                                     <div className="flex justify-between text-sm">
                                       <span className="text-muted-foreground">{t("projects.category")}</span>
-                                      <Badge variant="outline">{project.category}</Badge>
+                                      <Badge variant="outline">{getLocalized(project, "category", language)}</Badge>
                                     </div>
                                     <div className="flex justify-between text-sm">
                                       <span className="text-muted-foreground">{t("projects.beneficiaries")}</span>
