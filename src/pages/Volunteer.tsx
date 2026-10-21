@@ -12,9 +12,10 @@ import { Heart, Globe, Users, Clock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { getLocalized } from "@/lib/localized";
 
 const Volunteer = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [positions, setPositions] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
@@ -163,41 +164,41 @@ const Volunteer = () => {
                 {positions.map((position) => (
                   <Card key={position.id}>
                     <CardHeader>
-                      <CardTitle className="text-primary">{position.title}</CardTitle>
+                      <CardTitle className="text-primary">{getLocalized(position, "title", language)}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-muted-foreground mb-4">{position.description}</p>
-                      {position.requirements && (
+                      <p className="text-muted-foreground mb-4">{getLocalized(position, "description", language)}</p>
+                      {getLocalized(position, "requirements", language) && (
                         <div className="mb-4">
                           <p className="text-sm font-medium mb-1">
                             {t("volunteer.opportunities.requirements")}
                           </p>
-                          <p className="text-sm text-muted-foreground">{position.requirements}</p>
+                          <p className="text-sm text-muted-foreground">{getLocalized(position, "requirements", language)}</p>
                         </div>
                       )}
                       <div className="space-y-2 text-sm">
-                        {position.category && (
+                        {getLocalized(position, "category", language) && (
                           <div className="flex justify-between">
                             <span className="text-muted-foreground">
                               {t("volunteer.opportunities.category")}
                             </span>
-                            <span className="font-medium">{position.category}</span>
+                            <span className="font-medium">{getLocalized(position, "category", language)}</span>
                           </div>
                         )}
-                        {position.time_commitment && (
+                        {getLocalized(position, "time_commitment", language) && (
                           <div className="flex justify-between">
                             <span className="text-muted-foreground">
                               {t("volunteer.opportunities.commitment")}
                             </span>
-                            <span className="font-medium">{position.time_commitment}</span>
+                            <span className="font-medium">{getLocalized(position, "time_commitment", language)}</span>
                           </div>
                         )}
-                        {position.location && (
+                        {getLocalized(position, "location", language) && (
                           <div className="flex justify-between">
                             <span className="text-muted-foreground">
                               {t("volunteer.opportunities.location")}
                             </span>
-                            <span className="font-medium">{position.location}</span>
+                            <span className="font-medium">{getLocalized(position, "location", language)}</span>
                           </div>
                         )}
                       </div>

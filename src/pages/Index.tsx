@@ -1,3 +1,7 @@
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import type { Tables } from "@/integrations/supabase/types";
+import { getLocalized } from "@/lib/localized";
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
@@ -12,11 +16,28 @@ import healthcareImage from "@/assets/healthcare-project.jpg";
 import waterImage from "@/assets/water-project.jpg";
 
 const Index = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const [projects, setProjects] = useState<Tables<"projects">[]>([]);
 
-  const featuredProjects = [
+  useEffect(() => {
+    let mounted = true;
+    const fetchProjects = async () => {
+      const { data, error } = await supabase
+        .from("projects")
+        .select("*")
+        .eq("status", "active")
+        .order("created_at", { ascending: false })
+        .limit(3);
+      if (mounted && !error) setProjects(data ?? []);
+    };
+    void fetchProjects();
+    return () => { mounted = false; };
+  }, []);
+
+  const fallbackProjects = [
     {
-      id: 1,
+      id: "education",
+      href: "/projects",
       title: t("home.project.education.title"),
       description: t("home.project.education.description"),
       image: educationImage,
@@ -25,7 +46,8 @@ const Index = () => {
       icon: BookOpen
     },
     {
-      id: 2,
+      id: "healthcare",
+      href: "/projects",
       title: t("home.project.healthcare.title"),
       description: t("home.project.healthcare.description"),
       image: healthcareImage,
@@ -34,7 +56,8 @@ const Index = () => {
       icon: Stethoscope
     },
     {
-      id: 3,
+      id: "water",
+      href: "/projects",
       title: t("home.project.water.title"),
       description: t("home.project.water.description"),
       image: waterImage,
@@ -43,6 +66,17 @@ const Index = () => {
       icon: Droplets
     }
   ];
+
+  const featuredProjects = projects.length > 0 ? projects.map((project) => ({
+    id: project.id,
+    title: getLocalized(project, "title", language),
+    description: getLocalized(project, "description", language),
+    location: getLocalized(project, "location", language),
+    beneficiaries: project.beneficiaries ?? "",
+    image: project.image_urls?.[0] || "/placeholder.svg",
+    href: project.slug ? `/projects/${project.slug}` : "/projects",
+    icon: BookOpen,
+  })) : fallbackProjects;
 
   const impactStats = [
     { icon: Users, number: "25,000+", label: t("home.impact.lives") },
@@ -111,7 +145,7 @@ const Index = () => {
                       <Badge variant="outline">{project.beneficiaries}</Badge>
                     </div>
                     <Button variant="outline" className="w-full" asChild>
-                      <Link to="/projects">{t("common.viewDetails")}</Link>
+                      <Link to={project.href}>{t("common.viewDetails")}</Link>
                     </Button>
                   </CardContent>
                 </Card>
