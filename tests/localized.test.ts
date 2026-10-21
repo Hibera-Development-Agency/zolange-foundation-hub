@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { getLocalized } from "./localized";
+import { getLocalized } from "../src/lib/localized";
 
 describe("saved bilingual content", () => {
   const project = { title: "English title", title_fr: "Titre français" };
